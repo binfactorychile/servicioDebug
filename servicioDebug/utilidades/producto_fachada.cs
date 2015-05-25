@@ -46,7 +46,17 @@ namespace utilidades
 
 
             DataSet dataset = BDConnect.EjecutaConRetorno(query.listo() + ";" + queryID);
-            return Utils.cint(dataset.Tables[0].Rows[0]["LAST_INSERT_ID()"].ToString());
+
+            string producto_ID = dataset.Tables[0].Rows[0]["LAST_INSERT_ID()"].ToString();
+            //return dataset.Tables[0].Rows[0]["LAST_INSERT_ID()"].ToString());
+
+            query = new Query("insert", "bodega_producto");
+            query.AddInsert("producto_ID", producto_ID);
+            query.AddInsert("bodega_ID", 2);
+            query.AddInsert("cantidad", objeto.fstock_actual);
+            BDConnect.EjecutaConRetorno(query.listo());
+            return Utils.cint(producto_ID);
+            //return (int)BDConnect.Exec_Query(query.listo());
 
             //return (int)BDConnect.Exec_Query(query.listo());
         }
