@@ -962,7 +962,7 @@ namespace servicioDebug
             {
                 ConsultaSincronizacion();
                 this.ConsultaPorSincronizacionVenta();
-                Utils.EscribeLog("consultado CM");
+                //Utils.EscribeLog("consultado CM");
             }
             else if(checkVega.Checked)
             {
@@ -975,7 +975,7 @@ namespace servicioDebug
                 ConsultaPorSincronizacionClienteProveedor();
                 ConsultaPorSincronizacionPrecioCliente();
                 ConsultaPorSincronizacionUsuario();
-                Utils.EscribeLog("consultado La Vega");
+                //Utils.EscribeLog("consultado La Vega");
             }
         }
 
