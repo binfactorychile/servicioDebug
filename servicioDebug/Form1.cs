@@ -294,6 +294,7 @@ namespace servicioDebug
                     if (arrProductosJSON.Count > 0)
                     {
                         arrJson = JsonConvert.SerializeObject(arrProductosJSON);
+                        Utils.EscribeLog(arrJson);
                         string resultado = WebServiceComm.ingresaProductoSincronizacionJSON(arrJson);
                         if (!(resultado == "error_conexion"))
                         {
