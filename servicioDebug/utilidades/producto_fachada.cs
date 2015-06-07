@@ -88,6 +88,9 @@ namespace utilidades
             query.AddSet("cliente_proveedor_ID", Utils.preparaIU(objeto.fcliente_proveedorID));
             query.AddWhere("ID", objeto.fID.ToString());
             
+
+
+
             BDConnect.Exec_sQuery(query.listo());
         }
         public void ejecutaSin_retorno(Query query)

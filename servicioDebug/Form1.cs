@@ -564,6 +564,8 @@ namespace servicioDebug
                             if (ExisteProducto(prodJSON.f0))
                             {
                                 objProducto.Actualizar();
+                                String query_directa = "UPDATE bodega_producto SET cantidad=" + objProducto.fstock_actual.ToString() + " WHERE bodega_ID=2 and producto_ID=" + objProducto.fID.ToString();
+                                BDConnect.EjecutaSinRetorno(query_directa);
                             }
                             else
                             {
