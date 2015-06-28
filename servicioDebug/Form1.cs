@@ -832,7 +832,7 @@ namespace servicioDebug
                     {
                         DocVentasJson = JsonConvert.SerializeObject(arrDocumentoVentasJSON);
                         DetalleDocVentasJSON = JsonConvert.SerializeObject(arrDetalleDocumentoVentaJSON);
-                        string resultado = WebServiceComm.ingresaVentasSincronizacionJSON(DocVentasJson, DetalleDocVentasJSON);
+                        string resultado = WebServiceComm.ingresaDocumentoVentaSincronizacionJSON(DocVentasJson, DetalleDocVentasJSON);
                         if (!(resultado == "error_conexion"))
                         {
                             this.EliminaRegistrosSincronizados(arrDocumentoVentasSincronizacionIDs, sincronizacion_ID);
