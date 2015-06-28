@@ -756,6 +756,97 @@ namespace servicioDebug
 
         }
 
+        //sincronizacion documento de venta
+        private void ConsultaSincronizacionDocumentoVenta()
+        {
+            try
+            {
+                Query query = new Query("sincronizacion");
+                extDataSet dset = BDConnect.EjecutaConRetorno(query.listo());
+                if (dset.tieneDatos())
+                {
+
+                    foreach (DataRow fila in dset.Tables[0].Rows)
+                    {
+                        int sincronizacion_ID = int.Parse(fila["ID"].ToString());
+                        ConsultaRegistrosSincronizacionDocumentoVenta(sincronizacion_ID);
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Utils.EscribeLog(ex);
+            }
+        }
+        private void ConsultaRegistrosSincronizacionDocumentoVenta(int sincronizacion_ID)
+        {
+            try
+            {
+                Query query = new Query("sincronizacion_registro");
+                query.AddWhere("sincronizacion_ID", sincronizacion_ID.ToString());
+                query.AddWhere("tabla", "documento_venta");
+
+                string query_listo = query.listo();
+                extDataSet dset = BDConnect.EjecutaConRetorno(query_listo);
+                if (dset.tieneDatos())
+                {
+                    int registro_ID = 0;
+                    ArrayList arrDocumentoVentasJSON = new ArrayList();
+                    ArrayList arrDocumentoVentasSincronizacionIDs = new ArrayList();
+                    ArrayList arrDetalleDocumentoVentaJSON = new ArrayList();
+                    foreach (DataRow fila in dset.Tables[0].Rows)
+                    {
+                        registro_ID = int.Parse(fila["registro_ID"].ToString());
+                        arrDocumentoVentasSincronizacionIDs.Add(Utils.cint(fila["ID"].ToString()));
+                        query = new Query("documento_venta");
+                        query.AddWhere("ID", registro_ID.ToString());
+                        query_listo = query.listo();
+
+                        extDataSet dsetDocumentoVenta = BDConnect.EjecutaConRetorno(query_listo);
+                        if (dsetDocumentoVenta.tieneDatos())
+                        {
+                            DataRow filaDocumentoVenta = dsetDocumentoVenta.Tables[0].Rows[0];
+                            int servidor_ID = this.GetServidorID();
+                            Documento_ventaJSON objDocumentoVentaJson = new Documento_ventaJSON(filaDocumentoVenta, servidor_ID, fila["accion"].ToString());
+                            arrDocumentoVentasJSON.Add(objDocumentoVentaJson);
+
+                            query = new Query("detalle_documento_venta");
+                            query.AddWhere("documento_venta_ID", filaDocumentoVenta["ID"].ToString());
+                            query_listo = query.listo();
+                            extDataSet dsetDetalleDocVenta = BDConnect.EjecutaConRetorno(query_listo);
+                            if (dsetDetalleDocVenta.tieneDatos())
+                            {
+                                foreach (DataRow fila_detalledocventa in dsetDetalleDocVenta.Tables[0].Rows)
+                                {
+                                    Detalle_documento_ventaJSON objDetalleDocVentaJSON = new Detalle_documento_ventaJSON(fila_detalledocventa);
+                                    arrDetalleDocumentoVentaJSON.Add(objDetalleDocVentaJSON);
+                                }
+                            }
+                        }
+                    }
+                    String DocVentasJson = "";
+                    String DetalleDocVentasJSON = "";
+                    if (arrDocumentoVentasJSON.Count > 0)
+                    {
+                        DocVentasJson = JsonConvert.SerializeObject(arrDocumentoVentasJSON);
+                        DetalleDocVentasJSON = JsonConvert.SerializeObject(arrDetalleDocumentoVentaJSON);
+                        string resultado = WebServiceComm.ingresaVentasSincronizacionJSON(DocVentasJson, DetalleDocVentasJSON);
+                        if (!(resultado == "error_conexion"))
+                        {
+                            this.EliminaRegistrosSincronizados(arrDocumentoVentasSincronizacionIDs, sincronizacion_ID);
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Utils.EscribeLog(ex);
+            }
+        }
+
         //sincronizacion de ventas :D
 
         private void button3_Click(object sender, EventArgs e)
@@ -860,6 +951,8 @@ namespace servicioDebug
             this.ConsultaPorSincronizacionVenta();
         }
 
+       
+
         private void ConsultaPorSincronizacionVenta()
         {
             int servidor_ID = GetServidorID();
@@ -915,7 +1008,7 @@ namespace servicioDebug
                                     {
                                         CtrlDetalle_venta.guardarJSON(detalle_ventaJSON);
                                     }
-                                    ActualizaStockProducto(detalle_ventaJSON.getProducto_ID(), Utils.cint( detalle_ventaJSON.getCantidad())) ;
+                                    ActualizaStockProducto(detalle_ventaJSON.getProducto_ID(), Utils.cint(detalle_ventaJSON.getCantidad()));
                                 }
 
                             }
@@ -942,6 +1035,88 @@ namespace servicioDebug
 
         }
 
+        private void ConsultaPorSincronizacionDocumentoVenta()
+        {
+            int servidor_ID = GetServidorID();
+            string resultado = WebServiceComm.getDatosSincronizacionDocumentoVentaJSON(servidor_ID);
+
+            if (!(resultado == "error_conexion"))
+            {
+                List<Documento_ventaJSON> arrDocumentoVenta = new List<Documento_ventaJSON>();
+                arrDocumentoVenta = JsonConvert.DeserializeObject<List<Documento_ventaJSON>>(resultado);
+                ArrayList arrIDS = new ArrayList();
+                String arrJSON = "";
+                if (arrDocumentoVenta != null)
+                {
+                    foreach (Documento_ventaJSON DocumentoventaJSON in arrDocumentoVenta)
+                    {
+                        //Venta objProducto = new Venta(prodJSON);
+                        if (DocumentoventaJSON.f31 == "eliminar")
+                        {
+
+                        }
+                        else if (DocumentoventaJSON.f31 == "ingresar")
+                        {
+                            if (ExisteDocumentoVenta(DocumentoventaJSON.f0))
+                            {
+                                CtrlDocumento_venta.actualizarJSON(DocumentoventaJSON);
+                            }
+                            else
+                            {
+                                CtrlDocumento_venta.guardarJSON(DocumentoventaJSON);
+                            }
+                        }
+                        arrIDS.Add(DocumentoventaJSON.f30);
+
+                        resultado = WebServiceComm.getDatosSincronizacionDetalleDocumentoVentaJSON(DocumentoventaJSON.f0);
+
+                        List<Detalle_documento_ventaJSON> arrDetalleDocumentoVentas = new List<Detalle_documento_ventaJSON>();
+                        arrDetalleDocumentoVentas = JsonConvert.DeserializeObject<List<Detalle_documento_ventaJSON>>(resultado);
+                        if (arrDetalleDocumentoVentas != null)
+                        {
+                            foreach (Detalle_documento_ventaJSON detalle_documento_ventaJSON in arrDetalleDocumentoVentas)
+                            {
+                                if (DocumentoventaJSON.f31 == "eliminar")
+                                {
+
+                                }
+                                else if (DocumentoventaJSON.f31 == "ingresar")
+                                {
+                                    if (ExisteDetalleDocumentoVenta(detalle_documento_ventaJSON.f0))
+                                    {
+                                        CtrlDetalle_documento_venta.actualizarJSON(detalle_documento_ventaJSON);
+                                    }
+                                    else
+                                    {
+                                        CtrlDetalle_documento_venta.guardarJSON(detalle_documento_ventaJSON);
+                                    }
+
+                                }
+
+                            }
+                        }
+
+
+                    }
+                    //eliminar los registros asociados de sincronizacion_registro
+                    arrJSON = JsonConvert.SerializeObject(arrIDS);
+                    resultado = WebServiceComm.EliminaRegistroSincronizacionJSON(arrJSON);
+                }
+            }
+
+        }
+
+        private bool ExisteDocumentoVenta(int documento_venta_ID)
+        {
+            Documento_venta objDocumentoVenta = CtrlDocumento_venta.getDocumento_venta(documento_venta_ID);
+            if (objDocumentoVenta.fID > 0)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
         private void ActualizaStockProducto(int producto_ID, int cantidad) 
         {
             string query = "update bodega_producto set cantidad = (cantidad - " + cantidad + ") where bodega_ID = 2 and producto_ID = " + producto_ID;
@@ -959,17 +1134,30 @@ namespace servicioDebug
 
         }
 
+        private bool ExisteDetalleDocumentoVenta(int detalle_documento_venta_ID)
+        {
+            Detalle_documento_venta objDetalleDocumentoVenta = CtrlDetalle_documento_venta.getDetalle_documento_venta(detalle_documento_venta_ID);
+            if (objDetalleDocumentoVenta.fID > 0)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if(checkActivarCasaMatriz.Checked)
             {
                 ConsultaSincronizacion();
                 this.ConsultaPorSincronizacionVenta();
+                ConsultaPorSincronizacionDocumentoVenta();
                 //Utils.EscribeLog("consultado CM");
             }
             else if(checkVega.Checked)
             {
                 this.ConsultaSincronizacionVentas();
+                this.ConsultaSincronizacionDocumentoVenta();
 
                 ConsultaPorSincronizacionCategoria();
                 this.ConsultaPorSincronizacionProducto();

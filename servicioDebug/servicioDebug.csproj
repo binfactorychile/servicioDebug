@@ -68,8 +68,12 @@
     <Compile Include="utilidades\clsCategoriaJSON.cs" />
     <Compile Include="utilidades\clsCliente_proveedor.cs" />
     <Compile Include="utilidades\clsCliente_proveedorJSON.cs" />
+    <Compile Include="utilidades\clsDetalle_documento_venta.cs" />
+    <Compile Include="utilidades\clsDetalle_documento_ventaJSON.cs" />
     <Compile Include="utilidades\clsDetalle_venta.cs" />
     <Compile Include="utilidades\clsDetalle_ventaJSON.cs" />
+    <Compile Include="utilidades\clsDocumento_venta.cs" />
+    <Compile Include="utilidades\clsDocumento_ventaJSON.cs" />
     <Compile Include="utilidades\clsPrecio_por_cliente.cs" />
     <Compile Include="utilidades\clsPrecio_por_clienteJSON.cs" />
     <Compile Include="utilidades\clsPrecio_por_volumen.cs" />
@@ -95,7 +99,9 @@
     <Compile Include="utilidades\controlador_producto.cs" />
     <Compile Include="utilidades\ctrlCategoria.cs" />
     <Compile Include="utilidades\ctrlCliente_proveedor.cs" />
+    <Compile Include="utilidades\ctrlDetalle_documento_venta.cs" />
     <Compile Include="utilidades\ctrlDetalle_venta.cs" />
+    <Compile Include="utilidades\ctrlDocumento_venta.cs" />
     <Compile Include="utilidades\ctrlPrecio_por_cliente.cs" />
     <Compile Include="utilidades\ctrlPrecio_por_volumen.cs" />
     <Compile Include="utilidades\ctrlProducto_join_lista_precios.cs" />
@@ -110,7 +116,9 @@
     <Compile Include="utilidades\ctrlVenta.cs" />
     <Compile Include="utilidades\fachadaCategoria.cs" />
     <Compile Include="utilidades\fachadaCliente_proveedor.cs" />
+    <Compile Include="utilidades\fachadaDetalle_documento_venta.cs" />
     <Compile Include="utilidades\fachadaDetalle_venta.cs" />
+    <Compile Include="utilidades\fachadaDocumento_venta.cs" />
     <Compile Include="utilidades\fachadaPrecio_por_cliente.cs" />
     <Compile Include="utilidades\fachadaPrecio_por_volumen.cs" />
     <Compile Include="utilidades\fachadaProducto_join_lista_precios.cs" />

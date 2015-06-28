@@ -89,6 +89,75 @@ namespace utilidades
             }
         }
 
+        static public string getDatosSincronizacionDocumentoVentaJSON(int servidor_ID)
+        {
+            try
+            {
+
+                XmlDocument xmlDoc = new XmlDocument();
+                string soap = @"<soapenv:Envelope xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:mys=""MyServicePHP"">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <mys:getDatosSincronizacionDocumentoVentaJSON soapenv:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/"">
+        <servidor_ID xsi:type=""xsd:string""><![CDATA[" + servidor_ID + @"]]></servidor_ID>
+      </mys:getDatosSincronizacionDocumentoVentaJSON>
+   </soapenv:Body>
+</soapenv:Envelope>";
+
+
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(host);
+                req.Headers.Add("Accept-Encoding", "gzip");
+                req.Headers.Add("SOAPAction", "http://tempuri.org/getRecordValue");
+                req.ContentType = "text/xml;charset=\"" + encoding + "";
+                req.Accept = "text/xml";
+                req.Method = "POST";
+
+                using (Stream stm = req.GetRequestStream())
+                {
+                    using (StreamWriter stmw = new StreamWriter(stm))
+                    {
+                        stmw.Write(soap);
+                    }
+                }
+                WebResponse response = req.GetResponse();
+                Stream respStram = response.GetResponseStream();
+                string result = "";
+                if (response.Headers["Content-Encoding"] != null)
+                {
+                    if (response.Headers["Content-Encoding"].ToLower() == "gzip")
+                    {
+                        using (Stream streamGZip = new GZipStream(respStram, CompressionMode.Decompress))
+                        {
+                            StreamReader reader = new StreamReader(streamGZip);
+                            result = reader.ReadToEnd();
+                        }
+
+                    }
+                    else
+                    {
+                        StreamReader srd = new StreamReader(response.GetResponseStream());
+                        result = srd.ReadToEnd();
+                    }
+                }
+                else
+                {
+                    StreamReader srd = new StreamReader(response.GetResponseStream());
+                    result = srd.ReadToEnd();
+                }
+
+                xmlDoc.LoadXml(result);
+                //string temp= xmlDoc.LastChild.InnerText;
+
+                //xmlDoc.ge
+                return xmlDoc.LastChild.InnerText;// result;
+            }
+            catch (Exception ex)
+            {
+                Utils.EscribeLog(ex);
+                return "error_conexion";
+            }
+        }
+
         static public string getDatosSincronizacionDetalleVentaJSON(int venta_ID)
         {
             try
@@ -101,6 +170,75 @@ namespace utilidades
       <mys:getDatosSincronizacionDetalleVentaJSON soapenv:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/"">
         <venta_ID xsi:type=""xsd:string""><![CDATA[" + venta_ID + @"]]></venta_ID>
       </mys:getDatosSincronizacionDetalleVentaJSON>
+   </soapenv:Body>
+</soapenv:Envelope>";
+
+
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(host);
+                req.Headers.Add("Accept-Encoding", "gzip");
+                req.Headers.Add("SOAPAction", "http://tempuri.org/getRecordValue");
+                req.ContentType = "text/xml;charset=\"" + encoding + "";
+                req.Accept = "text/xml";
+                req.Method = "POST";
+
+                using (Stream stm = req.GetRequestStream())
+                {
+                    using (StreamWriter stmw = new StreamWriter(stm))
+                    {
+                        stmw.Write(soap);
+                    }
+                }
+                WebResponse response = req.GetResponse();
+                Stream respStram = response.GetResponseStream();
+                string result = "";
+                if (response.Headers["Content-Encoding"] != null)
+                {
+                    if (response.Headers["Content-Encoding"].ToLower() == "gzip")
+                    {
+                        using (Stream streamGZip = new GZipStream(respStram, CompressionMode.Decompress))
+                        {
+                            StreamReader reader = new StreamReader(streamGZip);
+                            result = reader.ReadToEnd();
+                        }
+
+                    }
+                    else
+                    {
+                        StreamReader srd = new StreamReader(response.GetResponseStream());
+                        result = srd.ReadToEnd();
+                    }
+                }
+                else
+                {
+                    StreamReader srd = new StreamReader(response.GetResponseStream());
+                    result = srd.ReadToEnd();
+                }
+
+                xmlDoc.LoadXml(result);
+                //string temp= xmlDoc.LastChild.InnerText;
+
+                //xmlDoc.ge
+                return xmlDoc.LastChild.InnerText;// result;
+            }
+            catch (Exception ex)
+            {
+                Utils.EscribeLog(ex);
+                return "error_conexion";
+            }
+        }
+
+        static public string getDatosSincronizacionDetalleDocumentoVentaJSON(int documento_venta_ID)
+        {
+            try
+            {
+
+                XmlDocument xmlDoc = new XmlDocument();
+                string soap = @"<soapenv:Envelope xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:mys=""MyServicePHP"">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <mys:getDatosSincronizacionDetalleDocumentoVentaJSON soapenv:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/"">
+        <venta_ID xsi:type=""xsd:string""><![CDATA[" + documento_venta_ID + @"]]></venta_ID>
+      </mys:getDatosSincronizacionDetalleDocumentoVentaJSON>
    </soapenv:Body>
 </soapenv:Envelope>";
 
@@ -1206,6 +1344,76 @@ namespace utilidades
         <arr_ventas_json xsi:type=""xsd:string""><![CDATA[" + arr_ventas_json + @"]]></arr_ventas_json>
         <arr_detalle_ventas_json xsi:type=""xsd:string""><![CDATA[" + arr_detalle_ventas_json + @"]]></arr_detalle_ventas_json>
       </mys:ingresaVentasSincronizacionJSON>
+   </soapenv:Body>
+</soapenv:Envelope>";
+
+
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(host);
+                req.Headers.Add("Accept-Encoding", "gzip");
+                req.Headers.Add("SOAPAction", "http://tempuri.org/getRecordValue");
+                req.ContentType = "text/xml;charset=\"" + encoding + "";
+                req.Accept = "text/xml";
+                req.Method = "POST";
+
+                using (Stream stm = req.GetRequestStream())
+                {
+                    using (StreamWriter stmw = new StreamWriter(stm))
+                    {
+                        stmw.Write(soap);
+                    }
+                }
+                WebResponse response = req.GetResponse();
+                Stream respStram = response.GetResponseStream();
+                string result = "";
+                if (response.Headers["Content-Encoding"] != null)
+                {
+                    if (response.Headers["Content-Encoding"].ToLower() == "gzip")
+                    {
+                        using (Stream streamGZip = new GZipStream(respStram, CompressionMode.Decompress))
+                        {
+                            StreamReader reader = new StreamReader(streamGZip);
+                            result = reader.ReadToEnd();
+                        }
+
+                    }
+                    else
+                    {
+                        StreamReader srd = new StreamReader(response.GetResponseStream());
+                        result = srd.ReadToEnd();
+                    }
+                }
+                else
+                {
+                    StreamReader srd = new StreamReader(response.GetResponseStream());
+                    result = srd.ReadToEnd();
+                }
+
+                xmlDoc.LoadXml(result);
+                //string temp= xmlDoc.LastChild.InnerText;
+
+                //xmlDoc.ge
+                return xmlDoc.LastChild.InnerText;// result;
+            }
+            catch (Exception ex)
+            {
+                Utils.EscribeLog(ex);
+                return "error_conexion";
+            }
+        }
+
+        static public string ingresaDocumentoVentaSincronizacionJSON(string arr_docventas_json, string arr_docdetalle_ventas_json)
+        {
+            try
+            {
+
+                XmlDocument xmlDoc = new XmlDocument();
+                string soap = @"<soapenv:Envelope xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:mys=""MyServicePHP"">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <mys:ingresaDocumentoVentaSincronizacionJSON soapenv:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/"">
+        <arr_docventas_json xsi:type=""xsd:string""><![CDATA[" + arr_docventas_json + @"]]></arr_docventas_json>
+        <arr_docdetalle_ventas_json xsi:type=""xsd:string""><![CDATA[" + arr_docdetalle_ventas_json + @"]]></arr_docdetalle_ventas_json>
+      </mys:ingresaDocumentoVentaSincronizacionJSON>
    </soapenv:Body>
 </soapenv:Envelope>";
 
