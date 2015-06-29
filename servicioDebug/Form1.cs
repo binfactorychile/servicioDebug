@@ -756,7 +756,7 @@ namespace servicioDebug
 
         }
 
-        //sincronizacion documento de venta
+        //sincronizacion documento de venta enviado desde la vega alacasa matriz
         private void ConsultaSincronizacionDocumentoVenta()
         {
             try
@@ -1117,6 +1117,78 @@ namespace servicioDebug
 
         }
 
+        private void ConsultaPorSincronizacionDocumentoCompra()
+        {
+            //TODO: aqui se debe cambiar documento_venta por documento_compra
+            int servidor_ID = GetServidorID();
+            string resultado = WebServiceComm.getDatosSincronizacionDocumentoVentaJSON(servidor_ID);
+
+            if (!(resultado == "error_conexion"))
+            {
+                List<Documento_ventaJSON> arrDocumentoVenta = new List<Documento_ventaJSON>();
+                arrDocumentoVenta = JsonConvert.DeserializeObject<List<Documento_ventaJSON>>(resultado);
+                ArrayList arrIDS = new ArrayList();
+                String arrJSON = "";
+                if (arrDocumentoVenta != null)
+                {
+                    foreach (Documento_ventaJSON DocumentoventaJSON in arrDocumentoVenta)
+                    {
+                        //Venta objProducto = new Venta(prodJSON);
+                        if (DocumentoventaJSON.f31 == "eliminar")
+                        {
+
+                        }
+                        else if (DocumentoventaJSON.f31 == "ingresar")
+                        {
+                            if (ExisteDocumentoVenta(DocumentoventaJSON.f0))
+                            {
+                                CtrlDocumento_venta.actualizarJSON(DocumentoventaJSON);
+                            }
+                            else
+                            {
+                                CtrlDocumento_venta.guardarJSON(DocumentoventaJSON);
+                            }
+                        }
+                        arrIDS.Add(DocumentoventaJSON.f30);
+
+                        resultado = WebServiceComm.getDatosSincronizacionDetalleDocumentoVentaJSON(DocumentoventaJSON.f0);
+
+                        List<Detalle_documento_ventaJSON> arrDetalleDocumentoVentas = new List<Detalle_documento_ventaJSON>();
+                        arrDetalleDocumentoVentas = JsonConvert.DeserializeObject<List<Detalle_documento_ventaJSON>>(resultado);
+                        if (arrDetalleDocumentoVentas != null)
+                        {
+                            foreach (Detalle_documento_ventaJSON detalle_documento_ventaJSON in arrDetalleDocumentoVentas)
+                            {
+                                if (DocumentoventaJSON.f31 == "eliminar")
+                                {
+
+                                }
+                                else if (DocumentoventaJSON.f31 == "ingresar")
+                                {
+                                    if (ExisteDetalleDocumentoVenta(detalle_documento_ventaJSON.f0))
+                                    {
+                                        CtrlDetalle_documento_venta.actualizarJSON(detalle_documento_ventaJSON);
+                                    }
+                                    else
+                                    {
+                                        CtrlDetalle_documento_venta.guardarJSON(detalle_documento_ventaJSON);
+                                    }
+
+                                }
+
+                            }
+                        }
+
+
+                    }
+                    //eliminar los registros asociados de sincronizacion_registro
+                    arrJSON = JsonConvert.SerializeObject(arrIDS);
+                    resultado = WebServiceComm.EliminaRegistroSincronizacionJSON(arrJSON);
+                }
+            }
+
+        }
+
         private void ActualizaStockProducto(int producto_ID, int cantidad) 
         {
             string query = "update bodega_producto set cantidad = (cantidad - " + cantidad + ") where bodega_ID = 2 and producto_ID = " + producto_ID;
@@ -1151,13 +1223,19 @@ namespace servicioDebug
             {
                 ConsultaSincronizacion();
                 this.ConsultaPorSincronizacionVenta();
-                ConsultaPorSincronizacionDocumentoVenta();
+                this.ConsultaPorSincronizacionDocumentoVenta();
                 //Utils.EscribeLog("consultado CM");
+
+                //envia los documentos de venta hacia el hosting
+                this.ConsultaSincronizacionDocumentoVenta();
             }
             else if(checkVega.Checked)
             {
                 this.ConsultaSincronizacionVentas();
                 this.ConsultaSincronizacionDocumentoVenta();
+
+                //trae los documentos de venta desde el hosting
+                this.ConsultaPorSincronizacionDocumentoCompra();
 
                 ConsultaPorSincronizacionCategoria();
                 this.ConsultaPorSincronizacionProducto();
