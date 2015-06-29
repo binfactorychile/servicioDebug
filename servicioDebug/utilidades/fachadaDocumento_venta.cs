@@ -38,10 +38,10 @@ namespace utilidades
             try
             {
                 Query query = new Query("insert", "documento_venta");
-                if (objeto.fID > 0)
-                {
-                    query.AddInsert("ID", objeto.fID);
-                }
+                //if (objeto.fID > 0)
+                //{
+                //    query.AddInsert("ID", objeto.fID);
+                //}
                 query.AddInsert("documento_venta_ID", objeto.fdocumento_venta_ID);
                 query.AddInsert("cliente_ID", objeto.fcliente_ID);
                 query.AddInsert("tipo_documento_ID", objeto.ftipo_documento_ID);
@@ -99,10 +99,10 @@ namespace utilidades
             try
             {
                 Query query = new Query("insert", "documento_venta");
-                if (objeto.getID() > 0)
-                {
-                    query.AddInsert("ID", objeto.getID());
-                }
+                //if (objeto.getID() > 0)
+                //{
+                //    query.AddInsert("ID", objeto.getID());
+                //}
                 query.AddInsert("documento_venta_ID", objeto.getDocumento_venta_ID());
                 query.AddInsert("cliente_ID", objeto.getCliente_ID());
                 query.AddInsert("tipo_documento_ID", objeto.getTipo_documento_ID());
