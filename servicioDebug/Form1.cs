@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.ComponentModel;
@@ -312,7 +312,7 @@ namespace servicioDebug
                         }
                     }
                     //precio_por_volumen
-                    if(arrPrecioVolumenJSON.Count > 0)
+                    if (arrPrecioVolumenJSON.Count > 0)
                     {
                         arrJson = JsonConvert.SerializeObject(arrPrecioVolumenJSON);
                         string resultado = WebServiceComm.ingresaPrecioVolumenSincronizacionJSON(arrJson);
@@ -609,7 +609,7 @@ namespace servicioDebug
                 {
                     foreach (CategoriaJSON catJSON in arrCategoria)
                     {
-                        
+
                         if (catJSON.f7 == "eliminar")
                         {
                             CtrlCategoria.eliminar(catJSON.getID());
@@ -627,7 +627,7 @@ namespace servicioDebug
                             CtrlSincronizar_tablet_categoria.registraCambioTablets(catJSON.getID());
                         }
                         arrIDS.Add(catJSON.f8);
-                        
+
                     }
                     //eliminar los registros asociados de sincronizacion_registro
                     arrJSON = JsonConvert.SerializeObject(arrIDS);
@@ -663,7 +663,7 @@ namespace servicioDebug
                 {
                     foreach (Producto_join_lista_preciosJSON lista_precioJSON in arrProductosListaPrecio)
                     {
-                     
+
                         if (lista_precioJSON.f4 == "eliminar")
                         {
                             CtrlProducto_join_lista_precios.eliminar(lista_precioJSON.f0);
@@ -692,7 +692,7 @@ namespace servicioDebug
 
         private bool ExisteProductoListaPrecio(int producto_join_lista_precios_ID)
         {
-            Producto_join_lista_precios objproductoListaPrecio = CtrlProducto_join_lista_precios.getProducto_join_lista_precios(producto_join_lista_precios_ID) ;
+            Producto_join_lista_precios objproductoListaPrecio = CtrlProducto_join_lista_precios.getProducto_join_lista_precios(producto_join_lista_precios_ID);
             if (objproductoListaPrecio.fID > 0)
             {
                 return true;
@@ -733,7 +733,7 @@ namespace servicioDebug
                                 CtrlPrecio_por_volumen.guardarJSON(precJSON);
                             }
                             CtrlSincronizar_tablet.guardar("ingresar", "precio_por_volumen", precJSON.getID());
-                            
+
                         }
                         arrIDS.Add(precJSON.f7);
                     }
@@ -951,7 +951,7 @@ namespace servicioDebug
             this.ConsultaPorSincronizacionVenta();
         }
 
-       
+
 
         private void ConsultaPorSincronizacionVenta()
         {
@@ -1189,7 +1189,7 @@ namespace servicioDebug
 
         }
 
-        private void ActualizaStockProducto(int producto_ID, int cantidad) 
+        private void ActualizaStockProducto(int producto_ID, int cantidad)
         {
             string query = "update bodega_producto set cantidad = (cantidad - " + cantidad + ") where bodega_ID = 2 and producto_ID = " + producto_ID;
             BDConnect.EjecutaSinRetorno(query);
@@ -1219,7 +1219,7 @@ namespace servicioDebug
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if(checkActivarCasaMatriz.Checked)
+            if (checkActivarCasaMatriz.Checked)
             {
                 ConsultaSincronizacion();
                 this.ConsultaPorSincronizacionVenta();
@@ -1229,7 +1229,7 @@ namespace servicioDebug
                 //envia los documentos de venta hacia el hosting
                 this.ConsultaSincronizacionDocumentoVenta();
             }
-            else if(checkVega.Checked)
+            else if (checkVega.Checked)
             {
                 this.ConsultaSincronizacionVentas();
                 this.ConsultaSincronizacionDocumentoVenta();
