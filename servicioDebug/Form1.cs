@@ -332,15 +332,23 @@ namespace servicioDebug
 
         private int GetServidorID()
         {
-            int servidor_ID = 0;
-            string query = "select valor_llave from configuracion where nombre_llave like 'SERVIDOR_ID'";
-            extDataSet dset = BDConnect.EjecutaConRetorno(query);
-            if (dset.tieneDatos())
+            try
             {
-                DataRow fila = dset.Tables[0].Rows[0];
-                servidor_ID = Utils.cint(fila["valor_llave"].ToString());
+                int servidor_ID = 0;
+                string query = "select valor_llave from configuracion where nombre_llave like 'SERVIDOR_ID'";
+                extDataSet dset = BDConnect.EjecutaConRetorno(query);
+                if (dset.tieneDatos())
+                {
+                    DataRow fila = dset.Tables[0].Rows[0];
+                    servidor_ID = Utils.cint(fila["valor_llave"].ToString());
+                }
+                return servidor_ID;
             }
-            return servidor_ID;
+            catch(Exception ex)
+            {
+                Utils.EscribeLog(ex);
+                return -1;
+            }
         }
 
         private void EliminaRegistrosSincronizados(ArrayList arrRegSincronizacionIDs, int sincronizacion_ID)
@@ -1131,8 +1139,11 @@ namespace servicioDebug
                 String arrJSON = "";
                 if (arrDocumentoVenta != null)
                 {
+                    int nuevo_ID = 0;
+                    Documento_compra facturaCompra;
                     foreach (Documento_ventaJSON DocumentoventaJSON in arrDocumentoVenta)
                     {
+                        facturaCompra = new Documento_compra();
                         //Venta objProducto = new Venta(prodJSON);
                         if (DocumentoventaJSON.f31 == "eliminar")
                         {
@@ -1140,13 +1151,32 @@ namespace servicioDebug
                         }
                         else if (DocumentoventaJSON.f31 == "ingresar")
                         {
+                            
                             if (ExisteDocumentoVenta(DocumentoventaJSON.f0))
                             {
                                 CtrlDocumento_venta.actualizarJSON(DocumentoventaJSON);
                             }
                             else
                             {
-                                CtrlDocumento_venta.guardarJSON(DocumentoventaJSON);
+                    
+                                facturaCompra.festado = 1;
+                                facturaCompra.ffecha_digitacion = DateTime.Parse(DocumentoventaJSON.getFecha_digitacion());
+                                facturaCompra.ffecha_documento = DateTime.Parse(DocumentoventaJSON.getFecha_documento());
+                                facturaCompra.ffecha_vencimiento = DateTime.Parse(DocumentoventaJSON.getFecha_vencimiento());
+                                facturaCompra.fforma_pago_ID = DocumentoventaJSON.getForma_pago_ID();
+                                facturaCompra.fproveedor_ID = 2;
+                                facturaCompra.fsucursal_ID = 2;
+                                facturaCompra.fnumero = DocumentoventaJSON.getNumero().ToString();
+                                facturaCompra.ftipo_documento_ID = 1;
+                                facturaCompra.ftotal_bruto = DocumentoventaJSON.getTotal_bruto();
+                                facturaCompra.ftotal_iva = DocumentoventaJSON.getTotal_iva();
+                                facturaCompra.ftotal_neto = DocumentoventaJSON.getTotal_neto();
+                                facturaCompra.ftotal_pagos = DocumentoventaJSON.getTotal_pagos();
+                                facturaCompra.ftotal_saldo = DocumentoventaJSON.getTotal_saldo();
+                                facturaCompra.fID= facturaCompra.guardar();
+
+
+                                //nuevo_ID=CtrlDocumento_venta.guardarJSON(DocumentoventaJSON);
                             }
                         }
                         arrIDS.Add(DocumentoventaJSON.f30);
@@ -1171,7 +1201,21 @@ namespace servicioDebug
                                     }
                                     else
                                     {
-                                        CtrlDetalle_documento_venta.guardarJSON(detalle_documento_ventaJSON);
+                                        Detalle_documento_compra detCompra = new Detalle_documento_compra();
+                                        detCompra.fcantidad = detalle_documento_ventaJSON.getCantidad();
+                                        detCompra.fdocumento_compra_ID = facturaCompra.fID;
+                                        detCompra.festado = detalle_documento_ventaJSON.getEstado();
+                                        detCompra.fiva = detalle_documento_ventaJSON.getIva();
+                                        detCompra.fprecio_neto_unitario = detalle_documento_ventaJSON.getPrecio_neto_unitario();
+                                        detCompra.fprecio_neto_unitario_factura = detalle_documento_ventaJSON.getPrecio_neto_unitario();
+                                        detCompra.fproducto_ID = detalle_documento_ventaJSON.getProducto_ID();
+                                        detCompra.ftotal_bruto = detalle_documento_ventaJSON.getTotal_bruto();
+                                        detCompra.ftotal_neto = detalle_documento_ventaJSON.getTotal_neto();
+                                        detCompra.guardar();
+
+
+                                        //detalle_documento_ventaJSON.setDocumento_venta_ID(nuevo_ID);
+                                        //CtrlDetalle_documento_venta.guardarJSON(detalle_documento_ventaJSON);
                                     }
 
                                 }
@@ -1246,6 +1290,16 @@ namespace servicioDebug
                 ConsultaPorSincronizacionUsuario();
                 //Utils.EscribeLog("consultado La Vega");
             }
+        }
+
+        private void checkVega_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkActivarCasaMatriz_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

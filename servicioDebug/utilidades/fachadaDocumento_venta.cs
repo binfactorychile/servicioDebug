@@ -73,17 +73,17 @@ namespace utilidades
                 query.AddInsert("estado_vigente", "vigente");
 
                 //BDConnect.EjecutaSinRetorno(query.listo());
-                //string queryID=query.lastInsertID();
+                string queryID = query.lastInsertID();
                 //DataSet dataset=BDConnect.EjecutaConRetorno(queryID);
 
-                string queryID = "SELECT ID FROM documento_venta WHERE ID = @@IDENTITY";
+                //string queryID = "SELECT ID FROM documento_venta WHERE ID = @@IDENTITY";
                 DataSet dataset = BDConnect.EjecutaConRetorno(query.listo() + ";" + queryID);
 
                 int Documento_venta_ID = 0;
                 foreach (DataRow fila in dataset.Tables[0].Rows)
                 {
-                    //Documento_venta_ID=Utils.cint(fila["LAST_INSERT_ID()"].ToString());
-                    Documento_venta_ID = Utils.cint(fila["ID"].ToString());
+                    Documento_venta_ID = Utils.cint(fila["LAST_INSERT_ID()"].ToString());
+                    //Documento_venta_ID = Utils.cint(fila["ID"].ToString());
                 }
                 return Documento_venta_ID;
             }
@@ -134,17 +134,17 @@ namespace utilidades
                 query.AddInsert("estado_vigente", "vigente");
 
                 //BDConnect.EjecutaSinRetorno(query.listo());
-                //string queryID=query.lastInsertID();
+                string queryID = query.lastInsertID();
                 //DataSet dataset=BDConnect.EjecutaConRetorno(queryID);
 
-                string queryID = "SELECT ID FROM documento_venta WHERE ID = @@IDENTITY";
+                //string queryID = "SELECT ID FROM documento_venta WHERE ID = @@IDENTITY";
                 DataSet dataset = BDConnect.EjecutaConRetorno(query.listo() + ";" + queryID);
 
                 int Documento_venta_ID = 0;
                 foreach (DataRow fila in dataset.Tables[0].Rows)
                 {
-                    //Documento_venta_ID=Utils.cint(fila["LAST_INSERT_ID()"].ToString());
-                    Documento_venta_ID = Utils.cint(fila["ID"].ToString());
+                    Documento_venta_ID = Utils.cint(fila["LAST_INSERT_ID()"].ToString());
+                    //Documento_venta_ID = Utils.cint(fila["ID"].ToString());
                 }
                 return Documento_venta_ID;
             }

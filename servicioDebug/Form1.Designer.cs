@@ -87,6 +87,7 @@
             this.checkVega.TabIndex = 4;
             this.checkVega.Text = "Activar Vega";
             this.checkVega.UseVisualStyleBackColor = true;
+            this.checkVega.CheckedChanged += new System.EventHandler(this.checkVega_CheckedChanged);
             // 
             // checkActivarCasaMatriz
             // 
@@ -97,6 +98,7 @@
             this.checkActivarCasaMatriz.TabIndex = 5;
             this.checkActivarCasaMatriz.Text = "Activar CM";
             this.checkActivarCasaMatriz.UseVisualStyleBackColor = true;
+            this.checkActivarCasaMatriz.CheckedChanged += new System.EventHandler(this.checkActivarCasaMatriz_CheckedChanged);
             // 
             // timer1
             // 
