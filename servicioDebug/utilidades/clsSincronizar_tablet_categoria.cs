@@ -92,8 +92,8 @@ namespace utilidades
 
         public Categoria getCategoria()
         {
-            Controlador_Categoria CtrlCategoria = new Controlador_Categoria();
-            return CtrlCategoria.getCategoria(_categoria_ID.ToString());
+            
+            return CtrlCategoria.getCategoria(_categoria_ID);
         }
 
         public Tablet getTablet()

@@ -41,20 +41,21 @@ namespace utilidades
                 query.AddInsert("producto_ID", objeto.fproducto_ID);
                 query.AddInsert("lista_precios_ID", objeto.flista_precios_ID);
                 query.AddInsert("precio_venta", objeto.fprecio_venta);
-                query.AddInsert("estado_vigente", "vigente");
+                query.AddInsert("cantidad_limite", objeto.fprecio_venta);
+                //query.AddInsert("estado_vigente", "vigente");
 
                 //BDConnect.EjecutaSinRetorno(query.listo());
-                //string queryID=query.lastInsertID();
+                string queryID=query.lastInsertID();
                 //DataSet dataset=BDConnect.EjecutaConRetorno(queryID);
 
-                string queryID = "SELECT ID FROM producto_join_lista_precios WHERE ID = @@IDENTITY";
+               // string queryID = "SELECT ID FROM producto_join_lista_precios WHERE ID = @@IDENTITY";
                 DataSet dataset = BDConnect.EjecutaConRetorno(query.listo() + ";" + queryID);
 
                 int Producto_join_lista_precios_ID = 0;
                 foreach (DataRow fila in dataset.Tables[0].Rows)
                 {
-                    //Producto_join_lista_precios_ID=Utils.cint(fila["LAST_INSERT_ID()"].ToString());
-                    Producto_join_lista_precios_ID = Utils.cint(fila["ID"].ToString());
+                    Producto_join_lista_precios_ID=Utils.cint(fila["LAST_INSERT_ID()"].ToString());
+                    //Producto_join_lista_precios_ID = Utils.cint(fila["ID"].ToString());
                 }
                 return Producto_join_lista_precios_ID;
             }
@@ -77,6 +78,7 @@ namespace utilidades
                 query.AddInsert("producto_ID", objeto.getProducto_ID());
                 query.AddInsert("lista_precios_ID", objeto.getLista_precios_ID());
                 query.AddInsert("precio_venta", objeto.getPrecio_venta());
+                query.AddInsert("cantidad_limite", objeto.fcantidad_limite);
                 //query.AddInsert("estado_vigente", "vigente");
 
                 //BDConnect.EjecutaSinRetorno(query.listo());
@@ -109,6 +111,7 @@ namespace utilidades
                 query.AddSet("producto_ID", objeto.fproducto_ID);
                 query.AddSet("lista_precios_ID", objeto.flista_precios_ID);
                 query.AddSet("precio_venta", objeto.fprecio_venta);
+                query.AddSet("cantidad_limite", objeto.fcantidad_limite);
                 query.AddWhere("ID", objeto.fID.ToString());
                 BDConnect.EjecutaSinRetorno(query.listo());
             }
@@ -125,6 +128,7 @@ namespace utilidades
                 query.AddSet("producto_ID", objeto.getProducto_ID());
                 query.AddSet("lista_precios_ID", objeto.getLista_precios_ID());
                 query.AddSet("precio_venta", objeto.getPrecio_venta());
+                query.AddSet("cantidad_limite", objeto.fcantidad_limite);
                 query.AddWhere("ID", objeto.getID().ToString());
                 BDConnect.EjecutaSinRetorno(query.listo());
             }

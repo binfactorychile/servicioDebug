@@ -294,7 +294,7 @@ namespace servicioDebug
                     if (arrProductosJSON.Count > 0)
                     {
                         arrJson = JsonConvert.SerializeObject(arrProductosJSON);
-                        Utils.EscribeLog(arrJson);
+                        
                         string resultado = WebServiceComm.ingresaProductoSincronizacionJSON(arrJson);
                         if (!(resultado == "error_conexion"))
                         {
@@ -402,13 +402,13 @@ namespace servicioDebug
                 {
                     foreach (Precio_por_clienteJSON precioClienteJSON in arrPrecioCliente)
                     {
-                        if (precioClienteJSON.f6 == "eliminar")
+                        if (precioClienteJSON.f98 == "eliminar")
                         {
-                            CtrlPrecio_por_cliente.eliminar(precioClienteJSON.getID());
+                            CtrlPrecio_por_cliente.eliminar(Utils.cint(precioClienteJSON.getID()));
                         }
-                        else if (precioClienteJSON.f6 == "ingresar")
+                        else if (precioClienteJSON.f98 == "ingresar")
                         {
-                            if (ExistePrecioCliente(precioClienteJSON.f0))
+                            if (ExistePrecioCliente(Utils.cint(precioClienteJSON.f0)))
                             {
                                 CtrlPrecio_por_cliente.actualizarJSON(precioClienteJSON);
                             }
@@ -416,9 +416,9 @@ namespace servicioDebug
                             {
                                 CtrlPrecio_por_cliente.guardarJSON(precioClienteJSON);
                             }
-                            CtrlSincronizar_tablet.guardar("ingresar", "precio_por_cliente", precioClienteJSON.getID());
+                            CtrlSincronizar_tablet.guardar("ingresar", "precio_por_cliente", Utils.cint(precioClienteJSON.getID()));
                         }
-                        arrIDS.Add(precioClienteJSON.f7);
+                        arrIDS.Add(precioClienteJSON.f99);
                     }
                     //eliminar los registros asociados de sincronizacion_registro
                     arrJSON = JsonConvert.SerializeObject(arrIDS);
@@ -508,11 +508,11 @@ namespace servicioDebug
                 {
                     foreach (Cliente_proveedorJSON clienteProveedorJSON in arrClienteProveedor)
                     {
-                        if (clienteProveedorJSON.f23 == "eliminar")
+                        if (clienteProveedorJSON.f98 == "eliminar")
                         {
                             CtrlCliente_proveedor.eliminar(clienteProveedorJSON.getID());
                         }
-                        else if (clienteProveedorJSON.f23 == "ingresar")
+                        else if (clienteProveedorJSON.f98 == "ingresar")
                         {
                             if (ExisteClienteProveedor(clienteProveedorJSON.f0))
                             {
@@ -523,7 +523,7 @@ namespace servicioDebug
                                 CtrlCliente_proveedor.guardarJSON(clienteProveedorJSON);
                             }
                         }
-                        arrIDS.Add(clienteProveedorJSON.f24);
+                        arrIDS.Add(clienteProveedorJSON.f99);
                         CtrlSincroniza_tablet_cliente.guardar(clienteProveedorJSON.getID(), "ingresar");
                     }
                     //eliminar los registros asociados de sincronizacion_registro
@@ -562,26 +562,27 @@ namespace servicioDebug
                     foreach (ProductoJSON prodJSON in arrProductos)
                     {
                         Producto objProducto = new Producto(prodJSON);
-                        if (prodJSON.f24 == "eliminar")
+                        if (prodJSON.f98 == "eliminar")
                         {
                             objProducto.festado = 2;
-                            objProducto.Actualizar();
+                            CtrlProducto.actualizar(objProducto);
+                            
                         }
-                        else if (prodJSON.f24 == "ingresar")
+                        else if (prodJSON.f98 == "ingresar")
                         {
                             if (ExisteProducto(prodJSON.f0))
                             {
-                                objProducto.Actualizar();
+                                CtrlProducto.actualizar(objProducto);
                                 String query_directa = "UPDATE bodega_producto SET cantidad=" + objProducto.fstock_actual.ToString() + " WHERE bodega_ID=2 and producto_ID=" + objProducto.fID.ToString();
                                 BDConnect.EjecutaSinRetorno(query_directa);
                             }
                             else
                             {
-                                (new Controlador_Producto()).guardar(objProducto);
+                                CtrlProducto.guardar(objProducto);
                             }
                             CtrlSincronizar_tablet_producto.registraCambioTablets(objProducto.fID, "ingresar");
                         }
-                        arrIDS.Add(prodJSON.f25);
+                        arrIDS.Add(prodJSON.f99);
                     }
                     //eliminar los registros asociados de sincronizacion_registro
                     arrJSON = JsonConvert.SerializeObject(arrIDS);
@@ -592,7 +593,7 @@ namespace servicioDebug
         }
         private bool ExisteProducto(int producto_ID)
         {
-            Producto objproducto = (new Controlador_Producto()).getProducto(producto_ID.ToString());
+            Producto objproducto = CtrlProducto.getProducto(producto_ID);
             if (objproducto.fID > 0)
             {
                 return true;
@@ -618,11 +619,11 @@ namespace servicioDebug
                     foreach (CategoriaJSON catJSON in arrCategoria)
                     {
 
-                        if (catJSON.f7 == "eliminar")
+                        if (catJSON.f98 == "eliminar")
                         {
                             CtrlCategoria.eliminar(catJSON.getID());
                         }
-                        else if (catJSON.f7 == "ingresar")
+                        else if (catJSON.f98 == "ingresar")
                         {
                             if (ExisteCategoria(catJSON.f0))
                             {
@@ -634,7 +635,7 @@ namespace servicioDebug
                             }
                             CtrlSincronizar_tablet_categoria.registraCambioTablets(catJSON.getID());
                         }
-                        arrIDS.Add(catJSON.f8);
+                        arrIDS.Add(catJSON.f99);
 
                     }
                     //eliminar los registros asociados de sincronizacion_registro
@@ -672,11 +673,11 @@ namespace servicioDebug
                     foreach (Producto_join_lista_preciosJSON lista_precioJSON in arrProductosListaPrecio)
                     {
 
-                        if (lista_precioJSON.f4 == "eliminar")
+                        if (lista_precioJSON.f98 == "eliminar")
                         {
                             CtrlProducto_join_lista_precios.eliminar(lista_precioJSON.f0);
                         }
-                        else if (lista_precioJSON.f4 == "ingresar")
+                        else if (lista_precioJSON.f98 == "ingresar")
                         {
                             if (ExisteProductoListaPrecio(lista_precioJSON.f0))
                             {
@@ -688,7 +689,7 @@ namespace servicioDebug
                             }
                             CtrlSincronizar_tablet_producto_join_lista_precios.guardar("ingresar", lista_precioJSON.getID());
                         }
-                        arrIDS.Add(lista_precioJSON.f5);
+                        arrIDS.Add(lista_precioJSON.f99);
                     }
                     //eliminar los registros asociados de sincronizacion_registro
                     arrJSON = JsonConvert.SerializeObject(arrIDS);
@@ -890,7 +891,7 @@ namespace servicioDebug
             try
             {
                 Query query = new Query("sincronizacion_registro");
-                query.AddWhere("sincronizacion_ID", sincronizacion_ID.ToString());
+                query.AddWhereExacto("sincronizacion_ID", sincronizacion_ID.ToString());
                 query.AddWhere("tabla", "venta");
 
                 string query_listo = query.listo();
@@ -977,11 +978,11 @@ namespace servicioDebug
                     foreach (VentaJSON ventaJSON in arrVentas)
                     {
                         //Venta objProducto = new Venta(prodJSON);
-                        if (ventaJSON.f29 == "eliminar")
+                        if (ventaJSON.f32 == "eliminar")
                         {
 
                         }
-                        else if (ventaJSON.f29 == "ingresar")
+                        else if (ventaJSON.f32 == "ingresar")
                         {
                             if (ExisteVenta(ventaJSON.f0))
                             {
@@ -992,9 +993,9 @@ namespace servicioDebug
                                 CtrlVenta.guardarJSON(ventaJSON);
                             }
                         }
-                        arrIDS.Add(ventaJSON.f28);
+                        arrIDS.Add(ventaJSON.f31);
 
-                        resultado = WebServiceComm.getDatosSincronizacionDetalleVentaJSON(ventaJSON.f0);
+                        resultado = WebServiceComm.getDatosSincronizacionDetalleVentaJSON(int.Parse(ventaJSON.f0));
 
                         List<Detalle_ventaJSON> arrDetalleVentas = new List<Detalle_ventaJSON>();
                         arrDetalleVentas = JsonConvert.DeserializeObject<List<Detalle_ventaJSON>>(resultado);
@@ -1002,11 +1003,11 @@ namespace servicioDebug
                         {
                             foreach (Detalle_ventaJSON detalle_ventaJSON in arrDetalleVentas)
                             {
-                                if (ventaJSON.f29 == "eliminar")
+                                if (ventaJSON.f32 == "eliminar")
                                 {
 
                                 }
-                                else if (ventaJSON.f29 == "ingresar")
+                                else if (ventaJSON.f32 == "ingresar")
                                 {
                                     if (ExisteDetalleVenta(detalle_ventaJSON.f0))
                                     {
@@ -1032,9 +1033,9 @@ namespace servicioDebug
 
         }
 
-        private bool ExisteVenta(int venta_ID)
+        private bool ExisteVenta(string venta_ID)
         {
-            Venta objVenta = CtrlVenta.getVenta(venta_ID);
+            Venta objVenta = CtrlVenta.getVenta(int.Parse(venta_ID));
             if (objVenta.fID > 0)
             {
                 return true;
@@ -1233,15 +1234,15 @@ namespace servicioDebug
 
         }
 
-        private void ActualizaStockProducto(int producto_ID, int cantidad)
+        private void ActualizaStockProducto(string producto_ID, int cantidad)
         {
             string query = "update bodega_producto set cantidad = (cantidad - " + cantidad + ") where bodega_ID = 2 and producto_ID = " + producto_ID;
             BDConnect.EjecutaSinRetorno(query);
         }
 
-        private bool ExisteDetalleVenta(int detalle_venta_ID)
+        private bool ExisteDetalleVenta(string detalle_venta_ID)
         {
-            Detalle_venta objDetalleVenta = CtrlDetalle_venta.getDetalle_venta(detalle_venta_ID);
+            Detalle_venta objDetalleVenta = CtrlDetalle_venta.getDetalle_venta(int.Parse(detalle_venta_ID));
             if (objDetalleVenta.fID > 0)
             {
                 return true;

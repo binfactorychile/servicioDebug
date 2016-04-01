@@ -36,6 +36,9 @@ namespace utilidades
         private int _total_pago_efectivo;
         private int _total_pago_tarjeta;
         private int _sucursal_ID;
+        private int _tablet_ID;
+        private int _banco_ID;
+        private int _tipo_cheque_ID;
 
         //CONSTRUCTOR
         public Venta(DataRow data)
@@ -70,6 +73,9 @@ namespace utilidades
                 _total_pago_efectivo = Utils.cint(data["total_pago_efectivo"].ToString());
                 _total_pago_tarjeta = Utils.cint(data["total_pago_tarjeta"].ToString());
                 _sucursal_ID = Utils.cint(data["sucursal_ID"].ToString());
+                _tablet_ID = Utils.cint(data["tablet_ID"].ToString());
+                _banco_ID = Utils.cint(data["banco_ID"].ToString());
+                _tipo_cheque_ID = Utils.cint(data["tipo_cheque_ID"].ToString());
             }
             catch (Exception ex)
             {
@@ -304,6 +310,30 @@ namespace utilidades
 
         }
 
+        public int ftablet_ID
+        {
+
+            get { return (_tablet_ID); }
+            set { _tablet_ID = value; }
+
+        }
+
+        public int fbanco_ID
+        {
+
+            get { return (_banco_ID); }
+            set { _banco_ID = value; }
+
+        }
+
+        public int ftipo_cheque_ID
+        {
+
+            get { return (_tipo_cheque_ID); }
+            set { _tipo_cheque_ID = value; }
+
+        }
+
 
         public void actualizar()
         {
@@ -349,10 +379,10 @@ namespace utilidades
         //    return CtrlTipo_documento.getTipo_documento(_tipo_documento_ID);
         //}
 
-        //public Usuario getUsuario()
-        //{
-        //    return CtrlUsuario.getUsuario(_usuario_ID);
-        //}
+        public Usuario getUsuario()
+        {
+            return CtrlUsuario.getUsuario(_usuario_ID);
+        }
 
         //public Arqueo_caja getArqueo_caja()
         //{
@@ -369,19 +399,34 @@ namespace utilidades
         //    return CtrlComprobante_contable.getComprobante_contable(_comprobante_contable_ID);
         //}
 
-        //public Documento_venta getDocumento_venta()
-        //{
-        //    return CtrlDocumento_venta.getDocumento_venta(_documento_venta_ID);
-        //}
+        public Documento_venta getDocumento_venta()
+        {
+            return CtrlDocumento_venta.getDocumento_venta(_documento_venta_ID);
+        }
 
-        //public Cliente_proveedor getCliente_proveedor()
-        //{
-        //    return CtrlCliente_proveedor.getCliente_proveedor(_cliente_proveedor_ID);
-        //}
+        public Cliente_proveedor getCliente_proveedor()
+        {
+            return CtrlCliente_proveedor.getCliente_proveedor(_cliente_proveedor_ID);
+        }
 
         //public Sucursal getSucursal()
         //{
         //    return CtrlSucursal.getSucursal(_sucursal_ID);
+        //}
+
+        public Tablet getTablet()
+        {
+            return CtrlTablet.getTablet(_tablet_ID);
+        }
+
+        //public Banco getBanco()
+        //{
+        //    return CtrlBanco.getBanco(_banco_ID);
+        //}
+
+        //public Tipo_cheque getTipo_cheque()
+        //{
+        //    return CtrlTipo_cheque.getTipo_cheque(_tipo_cheque_ID);
         //}
 
 
@@ -529,6 +574,21 @@ namespace utilidades
         {
 
             get { return ("sucursal_ID"); }
+        }
+        public static String tablet_ID
+        {
+
+            get { return ("tablet_ID"); }
+        }
+        public static String banco_ID
+        {
+
+            get { return ("banco_ID"); }
+        }
+        public static String tipo_cheque_ID
+        {
+
+            get { return ("tipo_cheque_ID"); }
         }
     }//Fin clase estática
 

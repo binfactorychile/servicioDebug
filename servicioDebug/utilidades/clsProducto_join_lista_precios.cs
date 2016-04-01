@@ -12,6 +12,7 @@ namespace utilidades
         private int _producto_ID;
         private int _lista_precios_ID;
         private int _precio_venta;
+        private double _cantidad_limite;
 
         //CONSTRUCTOR
         public Producto_join_lista_precios(DataRow data)
@@ -22,6 +23,7 @@ namespace utilidades
                 _producto_ID = Utils.cint(data["producto_ID"].ToString());
                 _lista_precios_ID = Utils.cint(data["lista_precios_ID"].ToString());
                 _precio_venta = Utils.cint(data["precio_venta"].ToString());
+                _cantidad_limite = Utils.cdouble(data["cantidad_limite"].ToString());
             }
             catch (Exception ex)
             {
@@ -37,6 +39,14 @@ namespace utilidades
 
             get { return (_ID); }
             set { _ID = value; }
+
+        }
+
+        public double fcantidad_limite
+        {
+
+            get { return (_cantidad_limite); }
+            set { _cantidad_limite = value; }
 
         }
 

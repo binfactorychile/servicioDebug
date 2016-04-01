@@ -63,6 +63,7 @@ namespace utilidades
                 query.AddInsert("observacion", objeto.fobservacion);
                 query.AddInsert("sucursal_ID", objeto.fsucursal_ID);
                 query.AddInsert("lista_precios_ID", objeto.flista_precios_ID);
+                query.AddInsert("descuento_adicional", objeto.fdescuento_adicional);
                 query.AddInsert("estado_vigente", "vigente");
 
                 //BDConnect.EjecutaSinRetorno(query.listo());
@@ -117,6 +118,7 @@ namespace utilidades
                 query.AddInsert("observacion", objeto.getObservacion());
                 query.AddInsert("sucursal_ID", objeto.getSucursal_ID());
                 query.AddInsert("lista_precios_ID", objeto.getLista_precios_ID());
+                query.AddInsert("descuento_adicional", objeto.getDescuento_adicional());
                 query.AddInsert("estado_vigente", "vigente");
 
                 //BDConnect.EjecutaSinRetorno(query.listo());
@@ -168,6 +170,7 @@ namespace utilidades
                 query.AddSet("observacion", objeto.fobservacion);
                 query.AddSet("sucursal_ID", objeto.fsucursal_ID);
                 query.AddSet("lista_precios_ID", objeto.flista_precios_ID);
+                query.AddSet("descuento_adicional", objeto.fdescuento_adicional);
                 query.AddWhere("ID", objeto.fID.ToString());
                 BDConnect.EjecutaSinRetorno(query.listo());
             }
@@ -203,6 +206,7 @@ namespace utilidades
                 query.AddSet("observacion", objeto.getObservacion());
                 query.AddSet("sucursal_ID", objeto.getSucursal_ID());
                 query.AddSet("lista_precios_ID", objeto.getLista_precios_ID());
+                query.AddSet("descuento_adicional", objeto.getDescuento_adicional());
                 query.AddWhere("ID", objeto.getID().ToString());
                 BDConnect.EjecutaSinRetorno(query.listo());
             }

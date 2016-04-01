@@ -201,7 +201,7 @@ namespace utilidades
         //        {
         //            nombre = nombre.Trim();
         //            Query query = new Query("detalle_venta");
-        //            query.AddWhereExacto(ST_Detalle_venta.nombre, nombre);
+        //            query.AddWhereExacto(ST_Detalle_venta., nombre);
         //            Detalle_venta[] arrDetalle_venta = getListado(query);
         //            if (arrDetalle_venta.Length > 0)
         //            {
@@ -223,6 +223,6 @@ namespace utilidades
         //}
     }
 }//Fin name_space
-//------------------------------------------------------------------------------
-//	FIN CONTROLADOR
-//------------------------------------------------------------------------------
+ //------------------------------------------------------------------------------
+ //	FIN CONTROLADOR
+ //------------------------------------------------------------------------------

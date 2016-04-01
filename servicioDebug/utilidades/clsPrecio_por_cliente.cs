@@ -11,9 +11,10 @@ namespace utilidades
         private int _ID;
         private int _cliente_proveedor_ID;
         private int _producto_ID;
-        private int _precio_venta_unitario;
+        private decimal _precio_venta_unitario;
         private int _cantidad_minima;
         private string _estado_vigente;
+        private decimal _porcentaje_aumento_precio_base;
 
         //CONSTRUCTOR
         public Precio_por_cliente(DataRow data)
@@ -23,9 +24,10 @@ namespace utilidades
                 _ID = Utils.cint(data["ID"].ToString());
                 _cliente_proveedor_ID = Utils.cint(data["cliente_proveedor_ID"].ToString());
                 _producto_ID = Utils.cint(data["producto_ID"].ToString());
-                _precio_venta_unitario = Utils.cint(data["precio_venta_unitario"].ToString());
+                _precio_venta_unitario = Utils.cdecimal(data["precio_venta_unitario"].ToString());
                 _cantidad_minima = Utils.cint(data["cantidad_minima"].ToString());
                 _estado_vigente = data["estado_vigente"].ToString();
+                _porcentaje_aumento_precio_base = Utils.cdecimal(data["porcentaje_aumento_precio_base"].ToString());
             }
             catch (Exception ex)
             {
@@ -60,7 +62,7 @@ namespace utilidades
 
         }
 
-        public int fprecio_venta_unitario
+        public decimal fprecio_venta_unitario
         {
 
             get { return (_precio_venta_unitario); }
@@ -81,6 +83,14 @@ namespace utilidades
 
             get { return (_estado_vigente); }
             set { _estado_vigente = value; }
+
+        }
+
+        public decimal fporcentaje_aumento_precio_base
+        {
+
+            get { return (_porcentaje_aumento_precio_base); }
+            set { _porcentaje_aumento_precio_base = value; }
 
         }
 
@@ -164,6 +174,11 @@ namespace utilidades
         {
 
             get { return ("estado_vigente"); }
+        }
+        public static String porcentaje_aumento_precio_base
+        {
+
+            get { return ("porcentaje_aumento_precio_base"); }
         }
     }//Fin clase estática
 

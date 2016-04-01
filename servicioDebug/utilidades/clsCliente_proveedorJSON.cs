@@ -33,8 +33,9 @@ namespace utilidades
         public String f20;//observacion
         public int f21;//sucursal_ID
         public int f22;//lista_precios_ID
-        public string f23;
-        public int f24;
+        public double f23;//descuento_adicional
+        public string f98;
+        public int f99;
 
         //CONSTRUCTOR
         public Cliente_proveedorJSON(DataRow data, string accion, int servidor_ID)
@@ -65,8 +66,9 @@ namespace utilidades
                 f20 = data["observacion"].ToString();
                 f21 = Utils.cint(data["sucursal_ID"].ToString());
                 f22 = Utils.cint(data["lista_precios_ID"].ToString());
-                f23 = accion;
-                f24 = servidor_ID;
+                f23 = Utils.cdouble(data["descuento_adicional"].ToString());
+                f98 = accion;
+                f99 = servidor_ID;
             }
             catch (Exception ex)
             {
@@ -209,6 +211,10 @@ namespace utilidades
         public int getLista_precios_ID()
         {
             return f22;
+        }
+        public double getDescuento_adicional()
+        {
+            return f23;
         }
         public void setID(int ID)
         {

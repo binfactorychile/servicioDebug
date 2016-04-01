@@ -14,8 +14,9 @@ namespace utilidades
         public int f1;//producto_ID
         public int f2;//lista_precios_ID
         public int f3;//precio_venta
-        public string f4; //accion
-        public int f5; //servidor_ID
+        public double f4;//cantidad_limite
+        public string f98; //accion
+        public int f99; //servidor_ID
         
         //CONSTRUCTOR
         public Producto_join_lista_preciosJSON(DataRow data, string accion, int servidor_ID)
@@ -27,8 +28,9 @@ namespace utilidades
                 f1 = Utils.cint(data["producto_ID"].ToString());
                 f2 = Utils.cint(data["lista_precios_ID"].ToString());
                 f3 = Utils.cint(data["precio_venta"].ToString());
-                f4 = accion;
-                f5 = servidor_ID;
+                f4 = Utils.cdouble(data["cantidad_limite"].ToString());
+                f98 = accion;
+                f99 = servidor_ID;
             }
             catch (Exception ex)
             {
@@ -69,6 +71,14 @@ namespace utilidades
         public void setPrecio_venta(int precio_venta)
         {
             this.f3 = precio_venta;
+        }
+
+        public double fcantidad_limite
+        {
+
+            get { return (f4); }
+            set { f4 = value; }
+
         }
 
         //public void actualizar()

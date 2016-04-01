@@ -31,6 +31,7 @@ namespace utilidades
         private string _observacion;
         private int _sucursal_ID;
         private int _lista_precios_ID;
+        private double _descuento_adicional;
 
         //CONSTRUCTOR
         public Cliente_proveedor(DataRow data)
@@ -60,6 +61,7 @@ namespace utilidades
                 _observacion = data["observacion"].ToString();
                 _sucursal_ID = Utils.cint(data["sucursal_ID"].ToString());
                 _lista_precios_ID = Utils.cint(data["lista_precios_ID"].ToString());
+                _descuento_adicional = Utils.cdouble(data["descuento_adicional"].ToString());
             }
             catch (Exception ex)
             {
@@ -254,6 +256,13 @@ namespace utilidades
 
         }
 
+        public double fdescuento_adicional
+        {
+
+            get { return (_descuento_adicional); }
+            set { _descuento_adicional = value; }
+
+        }
 
         public void actualizar()
         {

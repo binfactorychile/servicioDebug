@@ -81,6 +81,7 @@
     <Compile Include="utilidades\clsPrecio_por_clienteJSON.cs" />
     <Compile Include="utilidades\clsPrecio_por_volumen.cs" />
     <Compile Include="utilidades\clsPrecio_por_volumenJSON.cs" />
+    <Compile Include="utilidades\clsProducto.cs" />
     <Compile Include="utilidades\clsProductoJSON.cs" />
     <Compile Include="utilidades\clsProducto_join_lista_precios.cs" />
     <Compile Include="utilidades\clsProducto_join_lista_preciosJSON.cs" />
@@ -98,8 +99,6 @@
     <Compile Include="utilidades\clsUsuarioJSON.cs" />
     <Compile Include="utilidades\clsVenta.cs" />
     <Compile Include="utilidades\clsVentaJSON.cs" />
-    <Compile Include="utilidades\controlador_categoria.cs" />
-    <Compile Include="utilidades\controlador_producto.cs" />
     <Compile Include="utilidades\ctrlCategoria.cs" />
     <Compile Include="utilidades\ctrlCliente_proveedor.cs" />
     <Compile Include="utilidades\ctrlDetalle_documento_compra.cs" />
@@ -109,6 +108,7 @@
     <Compile Include="utilidades\ctrlDocumento_venta.cs" />
     <Compile Include="utilidades\ctrlPrecio_por_cliente.cs" />
     <Compile Include="utilidades\ctrlPrecio_por_volumen.cs" />
+    <Compile Include="utilidades\ctrlProducto.cs" />
     <Compile Include="utilidades\ctrlProducto_join_lista_precios.cs" />
     <Compile Include="utilidades\ctrlSincronizar_tablet.cs" />
     <Compile Include="utilidades\ctrlSincronizar_tablet_categoria.cs" />
@@ -128,6 +128,7 @@
     <Compile Include="utilidades\fachadaDocumento_venta.cs" />
     <Compile Include="utilidades\fachadaPrecio_por_cliente.cs" />
     <Compile Include="utilidades\fachadaPrecio_por_volumen.cs" />
+    <Compile Include="utilidades\fachadaProducto.cs" />
     <Compile Include="utilidades\fachadaProducto_join_lista_precios.cs" />
     <Compile Include="utilidades\fachadaSincronizar_tablet.cs" />
     <Compile Include="utilidades\fachadaSincronizar_tablet_categoria.cs" />
@@ -138,8 +139,6 @@
     <Compile Include="utilidades\fachadaTablet.cs" />
     <Compile Include="utilidades\fachadaUsuario.cs" />
     <Compile Include="utilidades\fachadaVenta.cs" />
-    <Compile Include="utilidades\producto.cs" />
-    <Compile Include="utilidades\producto_fachada.cs" />
     <Compile Include="utilidades\Utils.cs" />
     <Compile Include="utilidades\WebServiceComm.cs" />
     <EmbeddedResource Include="Form1.resx">

@@ -38,18 +38,15 @@ namespace utilidades
             try
             {
                 Query query = new Query("insert", "precio_por_cliente");
-                if (objeto.fID > 0) 
-                {
-                    query.AddInsert("ID", objeto.fID);
-                }
                 query.AddInsert("cliente_proveedor_ID", objeto.fcliente_proveedor_ID);
                 query.AddInsert("producto_ID", objeto.fproducto_ID);
                 query.AddInsert("precio_venta_unitario", objeto.fprecio_venta_unitario);
                 query.AddInsert("cantidad_minima", objeto.fcantidad_minima);
+                query.AddInsert("porcentaje_aumento_precio_base", objeto.fporcentaje_aumento_precio_base);
                 query.AddInsert("estado_vigente", "vigente");
 
                 //BDConnect.EjecutaSinRetorno(query.listo());
-                string queryID = query.lastInsertID();
+                string queryID=query.lastInsertID();
                 //DataSet dataset=BDConnect.EjecutaConRetorno(queryID);
 
                 //string queryID = "SELECT ID FROM precio_por_cliente WHERE ID = @@IDENTITY";
@@ -58,7 +55,7 @@ namespace utilidades
                 int Precio_por_cliente_ID = 0;
                 foreach (DataRow fila in dataset.Tables[0].Rows)
                 {
-                    Precio_por_cliente_ID = Utils.cint(fila["LAST_INSERT_ID()"].ToString());
+                    Precio_por_cliente_ID=Utils.cint(fila["LAST_INSERT_ID()"].ToString());
                     //Precio_por_cliente_ID = Utils.cint(fila["ID"].ToString());
                 }
                 return Precio_por_cliente_ID;
@@ -75,18 +72,15 @@ namespace utilidades
             try
             {
                 Query query = new Query("insert", "precio_por_cliente");
-                if (objeto.getID() > 0)
-                {
-                    query.AddInsert("ID", objeto.getID());
-                }
                 query.AddInsert("cliente_proveedor_ID", objeto.getCliente_proveedor_ID());
                 query.AddInsert("producto_ID", objeto.getProducto_ID());
                 query.AddInsert("precio_venta_unitario", objeto.getPrecio_venta_unitario());
                 query.AddInsert("cantidad_minima", objeto.getCantidad_minima());
+                query.AddInsert("porcentaje_aumento_precio_base", objeto.getPorcentaje_aumento_precio_base());
                 query.AddInsert("estado_vigente", "vigente");
 
                 //BDConnect.EjecutaSinRetorno(query.listo());
-                string queryID = query.lastInsertID();
+                string queryID=query.lastInsertID();
                 //DataSet dataset=BDConnect.EjecutaConRetorno(queryID);
 
                 //string queryID = "SELECT ID FROM precio_por_cliente WHERE ID = @@IDENTITY";
@@ -95,7 +89,7 @@ namespace utilidades
                 int Precio_por_cliente_ID = 0;
                 foreach (DataRow fila in dataset.Tables[0].Rows)
                 {
-                    Precio_por_cliente_ID = Utils.cint(fila["LAST_INSERT_ID()"].ToString());
+                    Precio_por_cliente_ID=Utils.cint(fila["LAST_INSERT_ID()"].ToString());
                     //Precio_por_cliente_ID = Utils.cint(fila["ID"].ToString());
                 }
                 return Precio_por_cliente_ID;
@@ -117,6 +111,7 @@ namespace utilidades
                 query.AddSet("precio_venta_unitario", objeto.fprecio_venta_unitario);
                 query.AddSet("cantidad_minima", objeto.fcantidad_minima);
                 query.AddSet("estado_vigente", objeto.festado_vigente);
+                query.AddSet("porcentaje_aumento_precio_base", objeto.fporcentaje_aumento_precio_base);
                 query.AddWhere("ID", objeto.fID.ToString());
                 BDConnect.EjecutaSinRetorno(query.listo());
             }
@@ -135,6 +130,7 @@ namespace utilidades
                 query.AddSet("precio_venta_unitario", objeto.getPrecio_venta_unitario());
                 query.AddSet("cantidad_minima", objeto.getCantidad_minima());
                 query.AddSet("estado_vigente", objeto.getEstado_vigente());
+                query.AddSet("porcentaje_aumento_precio_base", objeto.getPorcentaje_aumento_precio_base());
                 query.AddWhere("ID", objeto.getID().ToString());
                 BDConnect.EjecutaSinRetorno(query.listo());
             }
