@@ -727,11 +727,11 @@ namespace servicioDebug
                     foreach (Precio_por_volumenJSON precJSON in arrProductosListaPrecio)
                     {
 
-                        if (precJSON.f6 == "eliminar")
+                        if (precJSON.f98 == "eliminar")
                         {
                             CtrlPrecio_por_volumen.eliminar(precJSON.f0);
                         }
-                        else if (precJSON.f6 == "ingresar")
+                        else if (precJSON.f98 == "ingresar")
                         {
                             if (ExistePrecioVolumen(precJSON.f0))
                             {
@@ -744,7 +744,7 @@ namespace servicioDebug
                             CtrlSincronizar_tablet.guardar("ingresar", "precio_por_volumen", precJSON.getID());
 
                         }
-                        arrIDS.Add(precJSON.f7);
+                        arrIDS.Add(precJSON.f99);
                     }
                     //eliminar los registros asociados de sincronizacion_registro
                     arrJSON = JsonConvert.SerializeObject(arrIDS);

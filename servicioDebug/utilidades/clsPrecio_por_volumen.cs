@@ -13,6 +13,7 @@ namespace utilidades
         private int _cantidad_hasta;
         private int _producto_ID;
         private int _precio_venta_unitario;
+        private double _porcentaje_aumento_precio_base;
         private string _estado_vigente;
 
         //CONSTRUCTOR
@@ -26,6 +27,7 @@ namespace utilidades
                 _producto_ID = Utils.cint(data["producto_ID"].ToString());
                 _precio_venta_unitario = Utils.cint(data["precio_venta_unitario"].ToString());
                 _estado_vigente = data["estado_vigente"].ToString();
+                _porcentaje_aumento_precio_base = Utils.cdouble(data["porcentaje_aumento_precio_base"].ToString());
             }
             catch (Exception ex)
             {
@@ -83,7 +85,13 @@ namespace utilidades
             set { _estado_vigente = value; }
 
         }
+        public double fporcentaje_aumento_precio_base
+        {
 
+            get { return (_porcentaje_aumento_precio_base); }
+            set { _porcentaje_aumento_precio_base = value; }
+
+        }
 
         public void actualizar()
         {
