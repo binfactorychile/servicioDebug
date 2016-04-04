@@ -20,8 +20,8 @@ namespace utilidades
         public int f7;//sucursal_ID
         public int f8;//rol_usuario_ID
         public String f9;//estado_vigente
-        public string f10;
-        public int f11;
+        public string f98;
+        public int f99;
         //CONSTRUCTOR
         public UsuarioJSON(DataRow data, string accion, int servidor_ID)
         {
@@ -38,8 +38,8 @@ namespace utilidades
                 f7 = Utils.cint(data["sucursal_ID"].ToString());
                 f8 = Utils.cint(data["rol_usuario_ID"].ToString());
                 f9 = data["estado_vigente"].ToString();
-                f10 = accion;
-                f11 = servidor_ID;
+                f98 = accion;
+                f99 = servidor_ID;
             }
             catch (Exception ex)
             {

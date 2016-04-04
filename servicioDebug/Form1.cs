@@ -455,11 +455,11 @@ namespace servicioDebug
                 {
                     foreach (UsuarioJSON UsuarioJSON in arrUsuario)
                     {
-                        if (UsuarioJSON.f10 == "eliminar")
+                        if (UsuarioJSON.f98 == "eliminar")
                         {
                             CtrlUsuario.eliminar(UsuarioJSON.getID());
                         }
-                        else if (UsuarioJSON.f10 == "ingresar")
+                        else if (UsuarioJSON.f98 == "ingresar")
                         {
                             if (ExisteUsuario(UsuarioJSON.f0))
                             {
@@ -471,7 +471,7 @@ namespace servicioDebug
                             }
                             CtrlSincronizar_tablet_usuario.registraCambioTablets(UsuarioJSON.getID());
                         }
-                        arrIDS.Add(UsuarioJSON.f11);
+                        arrIDS.Add(UsuarioJSON.f99);
                     }
                     //eliminar los registros asociados de sincronizacion_registro
                     arrJSON = JsonConvert.SerializeObject(arrIDS);
