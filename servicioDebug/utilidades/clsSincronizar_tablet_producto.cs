@@ -96,8 +96,8 @@ namespace utilidades
 
         public Producto getProducto()
         {
-            Controlador_Producto CtrlProducto = new Controlador_Producto();
-            return CtrlProducto.getProducto(_producto_ID.ToString());
+            //Controlador_Producto CtrlProducto = new Controlador_Producto();
+            return CtrlProducto.getProducto(_producto_ID);
         }
 
         public Tablet getTablet()

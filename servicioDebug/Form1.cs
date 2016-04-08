@@ -31,7 +31,7 @@ namespace servicioDebug
             {
                 Query query = new Query("sincronizacion");
                 extDataSet dset = BDConnect.EjecutaConRetorno(query.listo());
-                if (dset.tieneDatos())
+                if (dset != null && dset.tieneDatos())
                 {
 
                     foreach (DataRow fila in dset.Tables[0].Rows)
