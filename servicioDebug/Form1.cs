@@ -294,7 +294,7 @@ namespace servicioDebug
                     if (arrProductosJSON.Count > 0)
                     {
                         arrJson = JsonConvert.SerializeObject(arrProductosJSON);
-                        
+
                         string resultado = WebServiceComm.ingresaProductoSincronizacionJSON(arrJson);
                         if (!(resultado == "error_conexion"))
                         {
@@ -344,7 +344,7 @@ namespace servicioDebug
                 }
                 return servidor_ID;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Utils.EscribeLog(ex);
                 return -1;
@@ -567,7 +567,7 @@ namespace servicioDebug
                         {
                             objProducto.festado = 2;
                             CtrlProducto.actualizar(objProducto);
-                            
+
                         }
                         else if (prodJSON.f98 == "ingresar")
                         {
@@ -597,7 +597,7 @@ namespace servicioDebug
                         arrJSON = JsonConvert.SerializeObject(arrIDS);
                         resultado = WebServiceComm.EliminaRegistroSincronizacionJSON(arrJSON);
                     }
-                    
+
                 }
             }
 
@@ -995,14 +995,14 @@ namespace servicioDebug
                         }
                         else if (ventaJSON.f32 == "ingresar")
                         {
-                            if (ExisteVenta(ventaJSON.f0))
-                            {
-                                CtrlVenta.actualizarJSON(ventaJSON);
-                            }
-                            else
-                            {
-                                CtrlVenta.guardarJSON(ventaJSON);
-                            }
+                            //if (ExisteVenta(ventaJSON.f0))
+                            //{
+                            //    CtrlVenta.actualizarJSON(ventaJSON);
+                            //}
+                            //else
+                            //{
+                            CtrlVenta.guardarJSON(ventaJSON);
+                            //}
                         }
                         arrIDS.Add(ventaJSON.f31);
 
@@ -1020,14 +1020,14 @@ namespace servicioDebug
                                 }
                                 else if (ventaJSON.f32 == "ingresar")
                                 {
-                                    if (ExisteDetalleVenta(detalle_ventaJSON.f0))
-                                    {
-                                        CtrlDetalle_venta.actualizarJSON(detalle_ventaJSON);
-                                    }
-                                    else
-                                    {
-                                        CtrlDetalle_venta.guardarJSON(detalle_ventaJSON);
-                                    }
+                                    //if (ExisteDetalleVenta(detalle_ventaJSON.f0))
+                                    //{
+                                    //    CtrlDetalle_venta.actualizarJSON(detalle_ventaJSON);
+                                    //}
+                                    //else
+                                    //{
+                                    CtrlDetalle_venta.guardarJSON(detalle_ventaJSON);
+                                    //}
                                     ActualizaStockProducto(detalle_ventaJSON.getProducto_ID(), Utils.cint(detalle_ventaJSON.getCantidad()));
                                 }
 
@@ -1163,14 +1163,14 @@ namespace servicioDebug
                         }
                         else if (DocumentoventaJSON.f31 == "ingresar")
                         {
-                            
+
                             if (ExisteDocumentoVenta(DocumentoventaJSON.f0))
                             {
                                 CtrlDocumento_venta.actualizarJSON(DocumentoventaJSON);
                             }
                             else
                             {
-                    
+
                                 facturaCompra.festado = 1;
                                 facturaCompra.ffecha_digitacion = DateTime.Parse(DocumentoventaJSON.getFecha_digitacion());
                                 facturaCompra.ffecha_documento = DateTime.Parse(DocumentoventaJSON.getFecha_documento());
@@ -1185,7 +1185,7 @@ namespace servicioDebug
                                 facturaCompra.ftotal_neto = DocumentoventaJSON.getTotal_neto();
                                 facturaCompra.ftotal_pagos = DocumentoventaJSON.getTotal_pagos();
                                 facturaCompra.ftotal_saldo = DocumentoventaJSON.getTotal_saldo();
-                                facturaCompra.fID= facturaCompra.guardar();
+                                facturaCompra.fID = facturaCompra.guardar();
 
 
                                 //nuevo_ID=CtrlDocumento_venta.guardarJSON(DocumentoventaJSON);

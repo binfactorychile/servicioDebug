@@ -127,17 +127,17 @@ public static  DataSet getListado(Query query)
 		query.AddInsert("estado_vigente", "vigente");
 		
 	//BDConnect.EjecutaSinRetorno(query.listo());
-	//string queryID=query.lastInsertID();
+	string queryID=query.lastInsertID();
 	//DataSet dataset=BDConnect.EjecutaConRetorno(queryID);
 	
-	string queryID = "SELECT ID FROM venta WHERE ID = @@IDENTITY";
+	//string queryID = "SELECT ID FROM venta WHERE ID = @@IDENTITY";
 	DataSet dataset = BDConnect.EjecutaConRetorno(query.listo() + ";" + queryID);
 	
 	int Venta_ID=0;
 	foreach(DataRow fila in dataset.Tables[0].Rows)
 	{
-	//Venta_ID=Utils.cint(fila["LAST_INSERT_ID()"].ToString());
-	Venta_ID=Utils.cint(fila["ID"].ToString());
+	Venta_ID=Utils.cint(fila["LAST_INSERT_ID()"].ToString());
+	//Venta_ID=Utils.cint(fila["ID"].ToString());
 	}
 	return Venta_ID;
 	}
