@@ -50,7 +50,7 @@ public static  DataSet getListado(Query query)
 		query.AddInsert("total_otros_impuestos", objeto.ftotal_otros_impuestos);
 		query.AddInsert("impuesto_ID", objeto.fimpuesto_ID);
 		query.AddInsert("precio_unitario_neto", objeto.fprecio_unitario_neto);
-		query.AddInsert("estado_vigente", "vigente");
+		//query.AddInsert("estado_vigente", "vigente");
 		
 	//BDConnect.EjecutaSinRetorno(query.listo());
 	string queryID=query.lastInsertID();
@@ -92,7 +92,7 @@ public static  DataSet getListado(Query query)
 		query.AddInsert("total_otros_impuestos", objeto.getTotal_otros_impuestos());
 		query.AddInsert("impuesto_ID", objeto.getImpuesto_ID());
 		query.AddInsert("precio_unitario_neto", objeto.getPrecio_unitario_neto());
-		query.AddInsert("estado_vigente", "vigente");
+		//query.AddInsert("estado_vigente", "vigente");
 		
 	//BDConnect.EjecutaSinRetorno(query.listo());
 	string queryID=query.lastInsertID();
