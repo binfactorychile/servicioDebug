@@ -96,8 +96,8 @@ namespace utilidades
             _estado = Utils.cint(producto.f12.ToString());
             _ultimo_precio_compra = Utils.cint(producto.f13.ToString());
             _ultimo_precio_venta = Utils.cint(producto.f14.ToString());
-            _ultima_fecha_compra = Utils.cdate(producto.f15.ToString());
-            _ultima_fecha_venta = Utils.cdate(producto.f16.ToString());
+            _ultima_fecha_compra = Utils.cdate(producto.f15);
+            _ultima_fecha_venta = Utils.cdate(producto.f16);
             _margen_ganancia = Utils.cint(producto.f17.ToString());
             _exento = producto.f18.ToString();
             _precio_venta_grupo = Utils.cint(producto.f19.ToString());

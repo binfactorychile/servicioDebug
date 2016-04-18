@@ -13,21 +13,26 @@ namespace utilidades
     {
         public static int cint(string valor)
         {
-            if (valor.IndexOf(",") > -1 || valor.IndexOf(".") > -1)
+            if (valor != null)
             {
-                if (valor.IndexOf(".") > -1)
-                    valor = valor.Replace('.', ',');
-                Double _temp = System.Math.Floor(Double.Parse(valor));
-                valor = _temp.ToString();
+                if (valor.IndexOf(",") > -1 || valor.IndexOf(".") > -1)
+                {
+                    if (valor.IndexOf(".") > -1)
+                        valor = valor.Replace('.', ',');
+                    Double _temp = System.Math.Floor(Double.Parse(valor));
+                    valor = _temp.ToString();
+                }
+                if (valor.IndexOf("$") > -1)
+                {
+                    return LimpiaMoneda(valor);
+                }
+                if (valor == "")
+                    return 0;
+                else
+                    return int.Parse(valor);
             }
-            if (valor.IndexOf("$") > -1)
-            {
-                return LimpiaMoneda(valor);
-            }
-            if (valor == "")
-                return 0;
-            else
-                return int.Parse(valor);
+
+            return 0;
         }
         public static int cint(decimal valor)
         {
@@ -41,7 +46,7 @@ namespace utilidades
         public static DateTime cdate(string valor)
         {
 
-            if (valor == "" || valor == "0000-00-00")
+            if (valor == null || valor == "" || valor == "0000-00-00")
                 return DateTime.Parse("1/1/1900");
             else
                 return DateTime.Parse(valor);
@@ -839,7 +844,7 @@ namespace utilidades
             {
                 double resultado_porcentaje = ((double)porcentaje_aumento / (double)100);
                 double precio_double = precio_original + (precio_original * resultado_porcentaje);//resultad (porcentaje_aumento/100);
-                int precio_int = (int)Math.Round(precio_double,0);
+                int precio_int = (int)Math.Round(precio_double, 0);
 
                 int last = precio_int % 10;
                 if ((10 - last) > 0 && last != 0)
@@ -894,7 +899,8 @@ namespace utilidades
                     //IPInterfaceProperties properties = adapter.GetIPProperties(); Line is not required
                     sMacAddress = adapter.GetPhysicalAddress().ToString();
                 }
-            } return sMacAddress;
+            }
+            return sMacAddress;
         }
 
     }

@@ -64,7 +64,7 @@ namespace utilidades
                 query.AddInsert("precio_base", objeto.fprecio_base);
                 query.AddInsert("porcentaje_descuento", objeto.fporcentaje_descuento);
                 query.AddInsert("impuesto_ID", objeto.fimpuesto_ID);
-                query.AddInsert("estado_vigente", "vigente");
+                //query.AddInsert("estado_vigente", "vigente");
 
                 //BDConnect.EjecutaSinRetorno(query.listo());
                 string queryID=query.lastInsertID();

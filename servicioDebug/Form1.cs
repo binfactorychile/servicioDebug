@@ -552,10 +552,11 @@ namespace servicioDebug
 
             if (!(resultado == "error_conexion"))
             {
-
+                bool error_sincronizacion = false;
                 List<ProductoJSON> arrProductos = new List<ProductoJSON>();
                 arrProductos = JsonConvert.DeserializeObject<List<ProductoJSON>>(resultado);
                 ArrayList arrIDS = new ArrayList();
+                int auxProducto_ID = 0;
                 String arrJSON = "";
                 if (arrProductos != null)
                 {
@@ -578,15 +579,25 @@ namespace servicioDebug
                             }
                             else
                             {
-                                CtrlProducto.guardar(objProducto);
+                                auxProducto_ID = CtrlProducto.guardar(objProducto);
+                                if (auxProducto_ID == 0)
+                                {
+                                    error_sincronizacion = true;
+                                    break;
+                                }
                             }
                             CtrlSincronizar_tablet_producto.registraCambioTablets(objProducto.fID, "ingresar");
                         }
                         arrIDS.Add(prodJSON.f99);
+
                     }
                     //eliminar los registros asociados de sincronizacion_registro
-                    arrJSON = JsonConvert.SerializeObject(arrIDS);
-                    resultado = WebServiceComm.EliminaRegistroSincronizacionJSON(arrJSON);
+                    if (!error_sincronizacion)
+                    {
+                        arrJSON = JsonConvert.SerializeObject(arrIDS);
+                        resultado = WebServiceComm.EliminaRegistroSincronizacionJSON(arrJSON);
+                    }
+                    
                 }
             }
 
