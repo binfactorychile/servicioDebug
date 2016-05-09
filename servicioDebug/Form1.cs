@@ -173,6 +173,9 @@ namespace servicioDebug
                             query.AddSelect("producto_compuesto_ID");
                             query.AddSelect("cliente_proveedor_ID");
                             query.AddSelect("codigo_producto");
+                            query.AddSelect("precio_base");
+                            query.AddSelect("porcentaje_descuento");
+                            query.AddSelect("impuesto_ID");
                             query.AddWhere("ID", registro_ID.ToString());
                             query_listo = query.listo();
 
