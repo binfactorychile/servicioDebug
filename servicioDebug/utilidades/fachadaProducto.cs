@@ -91,7 +91,11 @@ namespace utilidades
                 query.AddInsert("cantidad", objeto.fstock_actual);
                 BDConnect.EjecutaConRetorno(query.listo());
 
-                return Producto_ID;
+                if (objeto.fID > 0)
+                    return objeto.fID;
+
+                else
+                    return Producto_ID;
             }
             catch (Exception ex)
             {
