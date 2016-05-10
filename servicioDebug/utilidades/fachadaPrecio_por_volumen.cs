@@ -76,6 +76,10 @@ namespace utilidades
             try
             {
                 Query query = new Query("insert", "precio_por_volumen");
+                if (objeto.getID() > 0)
+                {
+                    query.AddInsert("ID", objeto.getID());
+                }
                 query.AddInsert("cantidad_desde", objeto.getCantidad_desde());
                 query.AddInsert("cantidad_hasta", objeto.getCantidad_hasta());
                 query.AddInsert("producto_ID", objeto.getProducto_ID());

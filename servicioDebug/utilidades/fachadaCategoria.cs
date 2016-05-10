@@ -79,6 +79,10 @@ namespace utilidades
             try
             {
                 Query query = new Query("insert", "categoria");
+                if (objeto.getID() > 0)
+                {
+                    query.AddInsert("ID", objeto.getID());
+                }
                 query.AddInsert("nombre", objeto.getNombre());
                 query.AddInsert("descripcion", objeto.getDescripcion());
                 query.AddInsert("categoria_ID", objeto.getCategoria_ID());
