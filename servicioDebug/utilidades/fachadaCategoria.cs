@@ -38,6 +38,10 @@ namespace utilidades
             try
             {
                 Query query = new Query("insert", "categoria");
+                if (objeto.fID > 0)
+                {
+                    query.AddInsert("ID", objeto.fID);
+                }
                 query.AddInsert("nombre", objeto.fnombre);
                 query.AddInsert("descripcion", objeto.fdescripcion);
                 query.AddInsert("categoria_ID", objeto.fcategoria_ID);

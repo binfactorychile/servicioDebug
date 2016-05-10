@@ -37,7 +37,12 @@ namespace utilidades
         {
             try
             {
+                
                 Query query = new Query("insert", "producto");
+                if (objeto.fID > 0)
+                {
+                    query.AddInsert("ID",objeto.fID);
+                }
                 query.AddInsert("categoria_ID", objeto.fcategoria_ID);
                 query.AddInsert("codigo_barra", objeto.fcodigo_barra);
                 query.AddInsert("codigo_barra_grupo", objeto.fcodigo_barra_grupo);
@@ -95,6 +100,7 @@ namespace utilidades
             }
         }
 
+        
         public static int guardarJSON(ProductoJSON objeto)
         {
             try

@@ -38,6 +38,10 @@ namespace utilidades
             try
             {
                 Query query = new Query("insert", "precio_por_cliente");
+                if (objeto.fID > 0)
+                {
+                    query.AddInsert("ID", objeto.fID);
+                }
                 query.AddInsert("cliente_proveedor_ID", objeto.fcliente_proveedor_ID);
                 query.AddInsert("producto_ID", objeto.fproducto_ID);
                 query.AddInsert("precio_venta_unitario", objeto.fprecio_venta_unitario);
