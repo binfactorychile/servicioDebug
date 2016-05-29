@@ -52,6 +52,8 @@ namespace servicioDebug
         {
             try
             {
+                Utils.EscribeLog("ConsultaRegistrosSincronizacion->1->ID->" + sincronizacion_ID.ToString());
+
                 Query query = new Query("sincronizacion_registro");
                 query.AddWhere("sincronizacion_ID", sincronizacion_ID.ToString());
                 query.AddOrderBy("tabla");
@@ -144,7 +146,9 @@ namespace servicioDebug
 
                         if (fila["tabla"].ToString() == "producto")
                         {
+                           
                             registro_ID = int.Parse(fila["registro_ID"].ToString());
+                            Utils.EscribeLog("ConsultaRegistrosSincronizacion->producto->ID->" + registro_ID.ToString());
                             arrRegSincronizacionIDs.Add(Utils.cint(fila["ID"].ToString()));
                             query = new Query("producto");
                             query.AddJoinAlReves("bodega_producto", "cantidad stock_actual");
@@ -178,10 +182,11 @@ namespace servicioDebug
                             query.AddSelect("impuesto_ID");
                             query.AddWhere("ID", registro_ID.ToString());
                             query_listo = query.listo();
-
+                            Utils.EscribeLog(query_listo);
                             extDataSet dsetProducto = BDConnect.EjecutaConRetorno(query_listo);
                             if (dsetProducto.tieneDatos())
                             {
+                                Utils.EscribeLog("ConsultaRegistrosSincronizacion->producto->ID->hay");
                                 DataRow filaProducto = dsetProducto.Tables[0].Rows[0];
                                 int servidor_ID = this.GetServidorID();
                                 ProductoJSON objProductoJson = new ProductoJSON(filaProducto, fila["accion"].ToString(), servidor_ID);
@@ -1313,6 +1318,11 @@ namespace servicioDebug
         }
 
         private void checkActivarCasaMatriz_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
