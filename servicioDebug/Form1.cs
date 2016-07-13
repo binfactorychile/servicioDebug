@@ -176,6 +176,7 @@ namespace servicioDebug
                             query.AddSelect("precio_base");
                             query.AddSelect("porcentaje_descuento");
                             query.AddSelect("impuesto_ID");
+                            query.AddSelect("subcategoria_ID");
                             query.AddWhere("ID", registro_ID.ToString());
                             query_listo = query.listo();
 
