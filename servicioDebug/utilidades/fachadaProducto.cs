@@ -69,6 +69,7 @@ namespace utilidades
                 query.AddInsert("precio_base", objeto.fprecio_base);
                 query.AddInsert("porcentaje_descuento", objeto.fporcentaje_descuento);
                 query.AddInsert("impuesto_ID", objeto.fimpuesto_ID);
+                query.AddInsert("subcategoria_ID", objeto.fsubcategoria_ID);
                 //query.AddInsert("estado_vigente", "vigente");
 
                 //BDConnect.EjecutaSinRetorno(query.listo());
@@ -136,6 +137,7 @@ namespace utilidades
                 query.AddInsert("precio_base", objeto.getPrecio_base());
                 query.AddInsert("porcentaje_descuento", objeto.getPorcentaje_descuento());
                 query.AddInsert("impuesto_ID", objeto.getImpuesto_ID());
+                query.AddInsert("subcategoria_ID", objeto.getSubcategoria_ID());
                 query.AddInsert("estado_vigente", "vigente");
 
                 //BDConnect.EjecutaSinRetorno(query.listo());
@@ -191,6 +193,7 @@ namespace utilidades
                 query.AddSet("precio_base", objeto.fprecio_base);
                 query.AddSet("porcentaje_descuento", objeto.fporcentaje_descuento);
                 query.AddSet("impuesto_ID", objeto.fimpuesto_ID);
+                query.AddSet("subcategoria_ID", objeto.fsubcategoria_ID);
                 query.AddWhere("ID", objeto.fID.ToString());
                 BDConnect.EjecutaSinRetorno(query.listo());
             }
@@ -230,6 +233,7 @@ namespace utilidades
                 query.AddSet("precio_base", objeto.getPrecio_base());
                 query.AddSet("porcentaje_descuento", objeto.getPorcentaje_descuento());
                 query.AddSet("impuesto_ID", objeto.getImpuesto_ID());
+                query.AddSet("subcategoria_ID", objeto.getSubcategoria_ID());
                 query.AddWhere("ID", objeto.getID().ToString());
                 BDConnect.EjecutaSinRetorno(query.listo());
             }

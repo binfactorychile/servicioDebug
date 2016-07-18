@@ -37,6 +37,7 @@ namespace utilidades
         public string f24;//precio_base
         public string f25;//porcentaje_descuento
         public string f26;//impuesto_ID
+        public string f30;//subcategoria_ID
         public string f98;
         public int f99;
 
@@ -73,6 +74,7 @@ namespace utilidades
                 f24 = data["precio_base"].ToString();
                 f25 = data["porcentaje_descuento"].ToString();
                 f26 = data["impuesto_ID"].ToString();
+                f30 = data["subcategoria_ID"].ToString();
                 f98 = accion;
                 f99 = servidor_ID;
             }
@@ -114,6 +116,7 @@ namespace utilidades
                 f24 = producto.fprecio_base.ToString();
                 f25 = producto.fporcentaje_descuento.ToString();
                 f26 = producto.fimpuesto_ID.ToString();
+                f30 = producto.fsubcategoria_ID.ToString();
             }
             catch (Exception ex)
             {
@@ -260,6 +263,10 @@ namespace utilidades
         public String getImpuesto_ID()
         {
             return f26;
+        }
+        public String getSubcategoria_ID()
+        {
+            return f30;
         }
         public void setID(int ID)
         {

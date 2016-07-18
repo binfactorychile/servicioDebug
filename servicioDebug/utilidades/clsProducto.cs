@@ -36,6 +36,7 @@ namespace utilidades
         private int _precio_base;
         private int _porcentaje_descuento;
         private int _impuesto_ID;
+        private int _subcategoria_ID;
 
         //CONSTRUCTOR
         public Producto(DataRow data)
@@ -72,6 +73,7 @@ namespace utilidades
                 _precio_base = Utils.cint(data["precio_base"].ToString());
                 _porcentaje_descuento = Utils.cint(data["porcentaje_descuento"].ToString());
                 _impuesto_ID = Utils.cint(data["impuesto_ID"].ToString());
+                _subcategoria_ID = Utils.cint(data["subcategoria_ID"].ToString());
             }
             catch (Exception ex)
             {
@@ -108,6 +110,7 @@ namespace utilidades
             _precio_base = Utils.cint(producto.f24);
             _porcentaje_descuento = Utils.cint(producto.f25);
             _impuesto_ID = Utils.cint(producto.f26);
+            _subcategoria_ID = Utils.cint(producto.f30);
         }
         public Producto()
         {
@@ -332,6 +335,14 @@ namespace utilidades
 
             get { return (_impuesto_ID); }
             set { _impuesto_ID = value; }
+
+        }
+
+        public int fsubcategoria_ID
+        {
+
+            get { return (_subcategoria_ID); }
+            set { _subcategoria_ID = value; }
 
         }
 
