@@ -13,7 +13,7 @@ namespace utilidades
         public int f0;//ID
         public int f1;//producto_ID
         public int f2;//lista_precios_ID
-        public int f3;//precio_venta
+        public double f3;//precio_venta
         public double f4;//cantidad_limite
         public string f98; //accion
         public int f99; //servidor_ID
@@ -27,7 +27,7 @@ namespace utilidades
                 f0 = Utils.cint(data["ID"].ToString());
                 f1 = Utils.cint(data["producto_ID"].ToString());
                 f2 = Utils.cint(data["lista_precios_ID"].ToString());
-                f3 = Utils.cint(data["precio_venta"].ToString());
+                f3 = Utils.cdouble(data["precio_venta"].ToString());
                 f4 = Utils.cdouble(data["cantidad_limite"].ToString());
                 f98 = accion;
                 f99 = servidor_ID;
@@ -52,7 +52,7 @@ namespace utilidades
         {
             return f2;
         }
-        public int getPrecio_venta()
+        public double getPrecio_venta()
         {
             return f3;
         }
