@@ -153,6 +153,7 @@ namespace servicioDebug
                             query = new Query("producto");
                             query.AddJoinAlReves("bodega_producto", "cantidad stock_actual");
                             query.AddWhere("bodega_ID", "2", "bodega_producto");
+                            query.AddSelect("porcentaje_variacion", "bodega_producto");
                             query.AddSelect("ID");
                             query.AddSelect("categoria_ID");
                             query.AddSelect("codigo_barra");

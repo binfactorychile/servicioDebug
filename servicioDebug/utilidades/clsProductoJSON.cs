@@ -55,7 +55,10 @@ namespace utilidades
                 f5 = data["descripcion"].ToString();
                 f6 = data["stock_actual"].ToString();
                 f7 = data["stock_minimo"].ToString();
-                f8 = data["precio_venta"].ToString();
+                double porcentaje_variacion =Utils.cdouble( data["porcentaje_variacion"].ToString());
+                double precio_venta = Utils.cdouble(data["precio_venta"].ToString());
+                precio_venta = precio_venta + (precio_venta * (porcentaje_variacion/100));
+                f8 = precio_venta.ToString();
                 f9 = data["unidad"].ToString();
                 f10 = data["unidad_grupo"].ToString();
                 f11 = data["cantidad_grupo"].ToString();

@@ -16,7 +16,7 @@ namespace utilidades
         private string _descripcion;
         private double _stock_actual;
         private double _stock_minimo;
-        private int _precio_venta;
+        private double _precio_venta;
         private string _unidad;
         private string _unidad_grupo;
         private double _cantidad_grupo;
@@ -33,7 +33,7 @@ namespace utilidades
         private int _producto_compuesto_ID;
         private int _cliente_proveedor_ID;
         private string _codigo_producto;
-        private int _precio_base;
+        private double _precio_base;
         private int _porcentaje_descuento;
         private int _impuesto_ID;
         private int _subcategoria_ID;
@@ -51,7 +51,7 @@ namespace utilidades
                 _descripcion = data["descripcion"].ToString();
                 _stock_actual = Utils.cint(data["stock_actual"].ToString());
                 _stock_minimo = Utils.cint(data["stock_minimo"].ToString());
-                _precio_venta = Utils.cint(data["precio_venta"].ToString());
+                _precio_venta = Utils.cdouble(data["precio_venta"].ToString());
                 _unidad = data["unidad"].ToString();
                 _unidad_grupo = data["unidad_grupo"].ToString();
                 _cantidad_grupo = Utils.cint(data["cantidad_grupo"].ToString());
@@ -70,7 +70,7 @@ namespace utilidades
                 _producto_compuesto_ID = Utils.cint(data["producto_compuesto_ID"].ToString());
                 _cliente_proveedor_ID = Utils.cint(data["cliente_proveedor_ID"].ToString());
                 _codigo_producto = data["codigo_producto"].ToString();
-                _precio_base = Utils.cint(data["precio_base"].ToString());
+                _precio_base = Utils.cdouble(data["precio_base"].ToString());
                 _porcentaje_descuento = Utils.cint(data["porcentaje_descuento"].ToString());
                 _impuesto_ID = Utils.cint(data["impuesto_ID"].ToString());
                 _subcategoria_ID = Utils.cint(data["subcategoria_ID"].ToString());
@@ -91,7 +91,7 @@ namespace utilidades
             _descripcion = producto.f5;// data["descripcion"].ToString();
             _stock_actual = Utils.cdouble(producto.f6.ToString());
             _stock_minimo = Utils.cdouble(producto.f7.ToString());
-            _precio_venta = Utils.cint(producto.f8.ToString());
+            _precio_venta = Utils.cdouble(producto.f8.ToString());
             _unidad = producto.f9;// data["unidad"].ToString();
             _unidad_grupo = producto.f10.ToString();// data["unidad_grupo"].ToString();
             _cantidad_grupo = Utils.cdouble(producto.f11.ToString());
@@ -107,7 +107,7 @@ namespace utilidades
             _producto_compuesto_ID = Utils.cint(producto.f21.ToString());
             _cliente_proveedor_ID = Utils.cint(producto.f22.ToString());
             _codigo_producto = producto.f23;
-            _precio_base = Utils.cint(producto.f24);
+            _precio_base = Utils.cdouble(producto.f24);
             _porcentaje_descuento = Utils.cint(producto.f25);
             _impuesto_ID = Utils.cint(producto.f26);
             _subcategoria_ID = Utils.cint(producto.f30);
@@ -186,7 +186,7 @@ namespace utilidades
 
         }
 
-        public int fprecio_venta
+        public double fprecio_venta
         {
 
             get { return (_precio_venta); }
@@ -314,7 +314,7 @@ namespace utilidades
 
         }
 
-        public int fprecio_base
+        public double fprecio_base
         {
 
             get { return (_precio_base); }
