@@ -37,6 +37,7 @@ namespace servicioDebug
                     foreach (DataRow fila in dset.Tables[0].Rows)
                     {
                         int sincronizacion_ID = int.Parse(fila["ID"].ToString());
+                        Utils.EscribeLog("ConsultaSincronizacion->" + sincronizacion_ID.ToString());
                         ConsultaRegistrosSincronizacion(sincronizacion_ID);
                     }
 
@@ -58,6 +59,7 @@ namespace servicioDebug
                 query.AddWhere("sincronizacion_ID", sincronizacion_ID.ToString());
                 query.AddOrderBy("tabla");
                 string query_listo = query.listo();
+                Utils.EscribeLog("ConsultaRegistrosSincronizacion->2->query->" + query_listo);
                 extDataSet dset = BDConnect.EjecutaConRetorno(query_listo);
                 if (dset.tieneDatos())
                 {
@@ -107,7 +109,9 @@ namespace servicioDebug
 
                         if (fila["tabla"].ToString() == "cliente_proveedor")
                         {
+                           
                             registro_ID = int.Parse(fila["registro_ID"].ToString());
+                            Utils.EscribeLog("ConsultaRegistrosSincronizacion->3->cliente->" + registro_ID);
                             arrClienteProveedorIDs.Add(Utils.cint(fila["ID"].ToString()));
                             query = new Query("cliente_proveedor");
                             query.AddWhere("ID", registro_ID.ToString());
@@ -118,9 +122,13 @@ namespace servicioDebug
                             {
                                 DataRow filaClienteProveedor = dsetClienteProveedor.Tables[0].Rows[0];
                                 int servidor_ID = this.GetServidorID();
+                                Utils.EscribeLog("ConsultaRegistrosSincronizacion->3->servidor_ID->" + servidor_ID.ToString());
+                                
                                 Cliente_proveedorJSON objCategoriaJSON = new Cliente_proveedorJSON(filaClienteProveedor, fila["accion"].ToString(), servidor_ID);
+                               
+                                Utils.EscribeLog("ConsultaRegistrosSincronizacion->4->cliente->" +  JsonConvert.SerializeObject(objCategoriaJSON));
                                 arrClienteProveedorJson.Add(objCategoriaJSON);
-
+                                
                             }
                         }
 
@@ -191,6 +199,7 @@ namespace servicioDebug
                                 DataRow filaProducto = dsetProducto.Tables[0].Rows[0];
                                 int servidor_ID = this.GetServidorID();
                                 ProductoJSON objProductoJson = new ProductoJSON(filaProducto, fila["accion"].ToString(), servidor_ID);
+                                Utils.EscribeLog("ConsultaRegistrosSincronizacion->4->producto->" + JsonConvert.SerializeObject(objProductoJson));
                                 arrProductosJSON.Add(objProductoJson);
 
                             }
@@ -270,6 +279,7 @@ namespace servicioDebug
                     if (arrClienteProveedorJson.Count > 0)
                     {
                         arrJson = JsonConvert.SerializeObject(arrClienteProveedorJson);
+                        Utils.EscribeLog("ingresaClienteProveedorSincronizacionJSON->" + arrJson);
                         string resultado = WebServiceComm.ingresaClienteProveedorSincronizacionJSON(arrJson);
                         if (!(resultado == "error_conexion"))
                         {
@@ -292,6 +302,7 @@ namespace servicioDebug
                     if (arrUsuarioJSON.Count > 0)
                     {
                         arrJson = JsonConvert.SerializeObject(arrUsuarioJSON);
+                        Utils.EscribeLog("arrUsuarioJSON->" + arrJson);
                         string resultado = WebServiceComm.ingresaUsuarioSincronizacionJSON(arrJson);
                         if (!(resultado == "error_conexion"))
                         {
@@ -303,7 +314,7 @@ namespace servicioDebug
                     if (arrProductosJSON.Count > 0)
                     {
                         arrJson = JsonConvert.SerializeObject(arrProductosJSON);
-
+                        Utils.EscribeLog("arrProductosJSON->" + arrJson);
                         string resultado = WebServiceComm.ingresaProductoSincronizacionJSON(arrJson);
                         if (!(resultado == "error_conexion"))
                         {
